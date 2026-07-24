@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Samuel David Espitia Contreras — Bioinformático &amp; Data Science</title>
 <meta name="description" content="Portafolio de Samuel David Espitia Contreras. Bioinformático y analista de datos, Máster en Bioinformática (UNIR).">
+<meta name="theme-color" content="#0b1220">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Samuel David Espitia Contreras — Bioinformático & Data Science">
+<meta property="og:description" content="Portafolio de Samuel David Espitia Contreras. Bioinformático y analista de datos, Máster en Bioinformática (UNIR).">
+<meta property="og:image" content="https://samuelespitia2000.github.io/assets/foto.png">
+<meta property="og:url" content="https://samuelespitia2000.github.io/">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,6 +36,7 @@
 
   <section class="hero">
     <div class="hero-inner">
+      <img class="hero-photo" src="assets/foto.png" width="132" height="132" alt="Foto de Samuel David Espitia Contreras">
       <p class="eyebrow">Bioinformático &middot; Data Science</p>
       <h1>Samuel David Espitia Contreras</h1>
       <p class="hero-sub">Máster en Bioinformática (UNIR). Análisis de datos genómicos, estadística aplicada y machine learning sobre datos biomédicos — con base en ciencias de la salud.</p>
@@ -37,146 +48,165 @@
   </section>
 
   <section id="sobre-mi" class="section">
-    <h2>Sobre mí</h2>
-    <p>
-      Profesional con Máster en Bioinformática (UNIR) enfocado en ciencia de datos aplicada a biología y genómica.
-      Combino programación en R y Python, estadística aplicada, bases de datos SQL y machine learning para transformar
-      datos complejos en información accionable.
-    </p>
-    <p>
-      Durante el máster desarrollé proyectos de extremo a extremo: pipelines de variant calling (NGS), análisis de
-      diversidad genética poblacional, modelos de clasificación y deep learning sobre datos biomédicos. Mi formación
-      de base en ciencias de la salud (Enfermería) aporta comprensión sólida de datos clínicos y sensibilidad por la
-      precisión y la ética en su manejo.
-    </p>
+    <div class="section-inner">
+      <h2>Sobre mí</h2>
+      <p>
+        Profesional con Máster en Bioinformática (UNIR) enfocado en ciencia de datos aplicada a biología y genómica.
+        Combino programación en R y Python, estadística aplicada, bases de datos SQL y machine learning para transformar
+        datos complejos en información accionable.
+      </p>
+      <p>
+        Durante el máster desarrollé proyectos de extremo a extremo: pipelines de variant calling (NGS), análisis de
+        diversidad genética poblacional, modelos de clasificación y deep learning sobre datos biomédicos. Mi formación
+        de base en ciencias de la salud (Enfermería) aporta comprensión sólida de datos clínicos y sensibilidad por la
+        precisión y la ética en su manejo.
+      </p>
+    </div>
   </section>
 
   <section id="formacion" class="section alt">
-    <h2>Formación</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Máster Universitario en Bioinformática</h3>
-          <p class="timeline-meta">Universidad Internacional de La Rioja (UNIR) &middot; 2025 – 2026</p>
-          <div class="tags">
-            <span class="tag">Algoritmos e IA</span>
-            <span class="tag">Programación Científica y Linux</span>
-            <span class="tag">Estadística y R</span>
-            <span class="tag">Secuenciación y Ómicas (NGS)</span>
-            <span class="tag">Genética Clínica y de Poblaciones</span>
-            <span class="tag">Bases de Datos</span>
-            <span class="tag">Programación en Python</span>
-            <span class="tag">Aspectos Éticos y Legales</span>
+    <div class="section-inner">
+      <h2>Formación</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Máster Universitario en Bioinformática</h3>
+            <p class="timeline-meta">Universidad Internacional de La Rioja (UNIR) &middot; 2025 – 2026</p>
+            <div class="tags">
+              <span class="tag">Algoritmos e IA</span>
+              <span class="tag">Programación Científica y Linux</span>
+              <span class="tag">Estadística y R</span>
+              <span class="tag">Secuenciación y Ómicas (NGS)</span>
+              <span class="tag">Genética Clínica y de Poblaciones</span>
+              <span class="tag">Bases de Datos</span>
+              <span class="tag">Programación en Python</span>
+              <span class="tag">Aspectos Éticos y Legales</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Grado en Enfermería</h3>
-          <p class="timeline-meta">Formación de pregrado en ciencias de la salud</p>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Grado en Enfermería</h3>
+            <p class="timeline-meta">Formación de pregrado en ciencias de la salud</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section id="proyectos" class="section">
-    <h2>Proyectos destacados</h2>
-    <div class="cards">
+    <div class="section-inner">
+      <h2>Proyectos destacados</h2>
+      <div class="cards">
 
-      <article class="card">
-        <div class="card-body">
-          <h3>Diversidad genética en cabras criollas colombianas</h3>
-          <p class="card-tag">Trabajo de Fin de Máster</p>
-          <p>
-            Pipeline en R (adegenet, poppr, hierfstat, ape) para evaluar diversidad genética y estructura poblacional
-            mediante 13 marcadores microsatélites STR sobre 176 muestras de 6 rebaños. AMOVA, DAPC, equilibrio de
-            Hardy-Weinberg, árbol filogenético Neighbor-Joining.
-          </p>
-          <div class="tags">
-            <span class="tag">R</span>
-            <span class="tag">Genética de poblaciones</span>
-            <span class="tag">AMOVA / DAPC</span>
+        <article class="card">
+          <div class="card-body">
+            <h3>Diversidad genética en cabras criollas colombianas</h3>
+            <p class="card-tag">Trabajo de Fin de Máster</p>
+            <p>
+              Pipeline en R (adegenet, poppr, hierfstat, ape) para evaluar diversidad genética y estructura poblacional
+              mediante 13 marcadores microsatélites STR sobre 176 muestras de 6 rebaños. AMOVA, DAPC, equilibrio de
+              Hardy-Weinberg, árbol filogenético Neighbor-Joining.
+            </p>
+            <div class="tags">
+              <span class="tag">R</span>
+              <span class="tag">Genética de poblaciones</span>
+              <span class="tag">AMOVA / DAPC</span>
+            </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <a href="https://github.com/samuelespitia2000/Analisis-de-diversidad-genetica-y-estructura-poblacional-en-cabras-mediante-marcadores-microsatelite" target="_blank" rel="noopener">Ver repositorio →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-body">
-          <h3>Clasificación de expresión génica con Machine Learning</h3>
-          <p class="card-tag">Actividad grupal &middot; Algoritmos e IA</p>
-          <p>
-            Reducción de dimensionalidad (PCA, t-SNE, UMAP), clustering y clasificadores kNN/SVM/Naive Bayes sobre
-            datos de expresión génica de 5 tipos tumorales, con selección de variables LASSO y validación cruzada
-            10-fold (AUC &gt; 0.97).
-          </p>
-          <div class="tags">
-            <span class="tag">R</span>
-            <span class="tag">Machine Learning</span>
-            <span class="tag">Bioinformática</span>
+          <div class="card-footer">
+            <a href="https://github.com/samuelespitia2000/Analisis-de-diversidad-genetica-y-estructura-poblacional-en-cabras-mediante-marcadores-microsatelite" target="_blank" rel="noopener">Ver repositorio →</a>
           </div>
-        </div>
-        <div class="card-footer">
-          <a href="https://github.com/samuelespitia2000/clasificacion-ML-expresion-genica" target="_blank" rel="noopener">Ver repositorio →</a>
-        </div>
-      </article>
+        </article>
 
-      <article class="card">
-        <div class="card-body">
-          <h3>Clasificación de malaria con redes neuronales</h3>
-          <p class="card-tag">Actividad grupal &middot; Programación en Python</p>
-          <p>
-            Red neuronal convolucional (TensorFlow/Keras) para distinguir células sanguíneas infectadas de sanas a
-            partir de imágenes de microscopía, con aumento de datos y evaluación en conjunto de prueba (90.6% accuracy,
-            AP 0.967).
-          </p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">Deep Learning</span>
-            <span class="tag">TensorFlow/Keras</span>
+        <article class="card">
+          <div class="card-body">
+            <h3>Clasificación de expresión génica con Machine Learning</h3>
+            <p class="card-tag">Actividad grupal &middot; Algoritmos e IA</p>
+            <p>
+              Reducción de dimensionalidad (PCA, t-SNE, UMAP), clustering y clasificadores kNN/SVM/Naive Bayes sobre
+              datos de expresión génica de 5 tipos tumorales, con selección de variables LASSO y validación cruzada
+              10-fold (AUC &gt; 0.97).
+            </p>
+            <div class="tags">
+              <span class="tag">R</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Bioinformática</span>
+            </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <a href="https://github.com/samuelespitia2000/clasificacion-CNN-malaria" target="_blank" rel="noopener">Ver repositorio →</a>
-        </div>
-      </article>
+          <div class="card-footer">
+            <a href="https://github.com/samuelespitia2000/clasificacion-ML-expresion-genica" target="_blank" rel="noopener">Ver repositorio →</a>
+          </div>
+        </article>
 
+        <article class="card">
+          <div class="card-body">
+            <h3>Clasificación de malaria con redes neuronales</h3>
+            <p class="card-tag">Actividad grupal &middot; Programación en Python</p>
+            <p>
+              Red neuronal convolucional (TensorFlow/Keras) para distinguir células sanguíneas infectadas de sanas a
+              partir de imágenes de microscopía, con aumento de datos y evaluación en conjunto de prueba (90.6% accuracy,
+              AP 0.967).
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Deep Learning</span>
+              <span class="tag">TensorFlow/Keras</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="https://github.com/samuelespitia2000/clasificacion-CNN-malaria" target="_blank" rel="noopener">Ver repositorio →</a>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
   <section id="habilidades" class="section alt">
-    <h2>Habilidades</h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h3>Lenguajes</h3>
-        <div class="tags"><span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Bash</span></div>
-      </div>
-      <div class="skill-group">
-        <h3>Bioinformática</h3>
-        <div class="tags"><span class="tag">Biopython</span><span class="tag">BioPerl</span><span class="tag">adegenet</span><span class="tag">poppr</span><span class="tag">DESeq2</span><span class="tag">Salmon</span><span class="tag">QIIME2</span><span class="tag">PyMOL</span></div>
-      </div>
-      <div class="skill-group">
-        <h3>Machine Learning</h3>
-        <div class="tags"><span class="tag">Scikit-learn</span><span class="tag">TensorFlow/Keras</span><span class="tag">caret</span></div>
-      </div>
-      <div class="skill-group">
-        <h3>Bases de datos</h3>
-        <div class="tags"><span class="tag">MySQL</span><span class="tag">MongoDB</span></div>
+    <div class="section-inner">
+      <h2>Habilidades</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Lenguajes</h3>
+          <div class="tags"><span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Bash</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Bioinformática</h3>
+          <div class="tags"><span class="tag">Biopython</span><span class="tag">BioPerl</span><span class="tag">adegenet</span><span class="tag">poppr</span><span class="tag">DESeq2</span><span class="tag">Salmon</span><span class="tag">QIIME2</span><span class="tag">PyMOL</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Machine Learning</h3>
+          <div class="tags"><span class="tag">Scikit-learn</span><span class="tag">TensorFlow/Keras</span><span class="tag">caret</span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Bases de datos</h3>
+          <div class="tags"><span class="tag">MySQL</span><span class="tag">MongoDB</span></div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="contacto" class="section contact">
-    <h2>Contacto</h2>
-    <p>Montería, Córdoba, Colombia</p>
-    <div class="contact-links">
-      <a href="mailto:samuelespitia2000@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/samuel-david-espitia-contreras-a6755a175/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/samuelespitia2000" target="_blank" rel="noopener">GitHub</a>
+    <div class="section-inner">
+      <h2>Contacto</h2>
+      <p>Montería, Córdoba, Colombia</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:samuelespitia2000@gmail.com">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">samuelespitia2000@gmail.com</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/samuel-david-espitia-contreras-a6755a175/" target="_blank" rel="noopener">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">/in/samuel-david-espitia-contreras</span>
+        </a>
+        <a class="contact-link" href="https://github.com/samuelespitia2000" target="_blank" rel="noopener">
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">@samuelespitia2000</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -185,6 +215,19 @@
 <footer class="footer">
   <p>&copy; 2026 Samuel David Espitia Contreras</p>
 </footer>
+
+<script>
+  const links = document.querySelectorAll('.nav nav a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+  const setActive = () => {
+    let current = sections[0];
+    const y = window.scrollY + 120;
+    sections.forEach(s => { if (s && s.offsetTop <= y) current = s; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  };
+  document.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
 
 </body>
 </html>

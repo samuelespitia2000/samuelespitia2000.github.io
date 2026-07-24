@@ -32,6 +32,8 @@ h2 { font-size: 1.75rem; margin-bottom: 1.25em; }
 h3 { font-size: 1.15rem; }
 p { color: var(--text-muted); margin: 0 0 1em; }
 
+img { max-width: 100%; display: block; }
+
 .nav {
   position: sticky;
   top: 0;
@@ -55,17 +57,28 @@ p { color: var(--text-muted); margin: 0 0 1em; }
   color: var(--text-muted);
   margin-left: 20px;
   font-size: 0.92rem;
+  transition: color 0.15s ease;
 }
 .nav nav a:first-child { margin-left: 0; }
-.nav nav a:hover { color: var(--accent); text-decoration: none; }
+.nav nav a:hover,
+.nav nav a.active { color: var(--accent); text-decoration: none; }
 
 .hero {
-  padding: 96px 24px 72px;
+  padding: 80px 24px 72px;
   text-align: center;
   border-bottom: 1px solid var(--border);
   background: radial-gradient(circle at 50% 0%, var(--bg-alt), var(--bg) 65%);
+  scroll-margin-top: 64px;
 }
 .hero-inner { max-width: 680px; margin: 0 auto; }
+.hero-photo {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
 .eyebrow {
   color: var(--accent);
   text-transform: uppercase;
@@ -92,26 +105,13 @@ p { color: var(--text-muted); margin: 0 0 1em; }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
 .section {
+  scroll-margin-top: 64px;
+}
+.section.alt { background: var(--bg-alt); }
+.section-inner {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 64px 24px;
-}
-.section.alt { background: var(--bg-alt); max-width: 100%; }
-.section.alt > * { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
-.section.alt h2 { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
-
-/* alt sections need inner wrapper for width; simplify by wrapping content */
-#formacion, #habilidades {
-  padding-left: 0;
-  padding-right: 0;
-}
-#formacion > h2, #formacion > .timeline,
-#habilidades > h2, #habilidades > .skills-grid {
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
 .timeline { position: relative; padding-left: 28px; border-left: 2px solid var(--border); }
@@ -152,9 +152,9 @@ p { color: var(--text-muted); margin: 0 0 1em; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.card:hover { border-color: var(--accent); }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .card-body { padding: 24px; }
 .card-tag { color: var(--accent); font-size: 0.82rem; font-weight: 600; margin-bottom: 10px; }
 .card p { margin-bottom: 14px; }
@@ -173,8 +173,34 @@ p { color: var(--text-muted); margin: 0 0 1em; }
 .skill-group h3 { margin-bottom: 12px; font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 
 .contact { text-align: center; }
-.contact-links { display: flex; gap: 24px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-.contact-links a { font-weight: 600; font-size: 1rem; }
+.contact-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 22px;
+  min-width: 180px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.contact-link:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+.contact-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.contact-value { color: var(--text); font-size: 0.92rem; word-break: break-word; }
 
 .footer {
   text-align: center;
@@ -187,7 +213,8 @@ p { color: var(--text-muted); margin: 0 0 1em; }
 @media (max-width: 640px) {
   .nav-inner { flex-direction: column; align-items: flex-start; }
   .nav nav a { margin-left: 0; margin-right: 16px; }
-  .hero { padding: 64px 20px 48px; }
+  .hero { padding: 56px 20px 48px; }
   .hero h1 { font-size: 1.9rem; }
-  .section { padding: 48px 20px; }
+  .hero-photo { width: 108px; height: 108px; }
+  .section-inner { padding: 48px 20px; }
 }
