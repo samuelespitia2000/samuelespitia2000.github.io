@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Estudio — Bioinformática &amp; Datos</title>
+<meta name="description" content="Calendario interactivo de 6 meses para estudiar bioinformática y ciencia de datos, 2 horas al día.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#F2F4F1; --bg-raised:#FFFFFF; --bg-sunken:#E7EAE6;
+  --ink:#15211E; --ink-soft:#4B5A54; --ink-faint:#7C8983;
+  --line:rgba(21,33,30,0.13); --line-strong:rgba(21,33,30,0.22);
+  --teal:#0F6B5C; --teal-deep:#0B4F45; --teal-tint:#DCEAE6;
+  --amber:#C85A26; --amber-tint:#F4DCC9;
+  --danger:#B23B3B;
+  --serif:Georgia,'Iowan Old Style','Noto Serif','Times New Roman',serif;
+  --sans:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono:'Cascadia Code','JetBrains Mono',Consolas,'SF Mono',Menlo,monospace;
+  --radius:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0E1614; --bg-raised:#162320; --bg-sunken:#0A100E;
+    --ink:#ECF2EF; --ink-soft:#AEBDB6; --ink-faint:#78877F;
+    --line:rgba(236,242,239,0.14); --line-strong:rgba(236,242,239,0.24);
+    --teal:#3FCBAA; --teal-deep:#2E9B81; --teal-tint:rgba(63,203,170,0.14);
+    --amber:#E98A52; --amber-tint:rgba(233,138,82,0.16);
+    --danger:#E07575;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1614; --bg-raised:#162320; --bg-sunken:#0A100E;
+  --ink:#ECF2EF; --ink-soft:#AEBDB6; --ink-faint:#78877F;
+  --line:rgba(236,242,239,0.14); --line-strong:rgba(236,242,239,0.24);
+  --teal:#3FCBAA; --teal-deep:#2E9B81; --teal-tint:rgba(63,203,170,0.14);
+  --amber:#E98A52; --amber-tint:rgba(233,138,82,0.16);
+  --danger:#E07575;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#F2F4F1; --bg-raised:#FFFFFF; --bg-sunken:#E7EAE6;
+  --ink:#15211E; --ink-soft:#4B5A54; --ink-faint:#7C8983;
+  --line:rgba(21,33,30,0.13); --line-strong:rgba(21,33,30,0.22);
+  --teal:#0F6B5C; --teal-deep:#0B4F45; --teal-tint:#DCEAE6;
+  --amber:#C85A26; --amber-tint:#F4DCC9;
+  --danger:#B23B3B;
+  color-scheme:light;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;margin:0;}
+h1,h2,h3{font-family:var(--serif);font-weight:700;text-wrap:balance;margin:0;}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px;}
+code,.mono,.tag,.datebadge,.stat-num{font-family:var(--mono);}
+
+.topbar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+.brand{display:flex;flex-direction:column;gap:2px;}
+.brand-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--teal);}
+.brand h1{font-size:26px;}
+.overall-wrap{display:flex;align-items:center;gap:12px;}
+.ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex:none;
+  background:conic-gradient(var(--teal) calc(var(--pct,0)*1%), var(--bg-sunken) 0);}
+.ring::before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg-raised);}
+.ring span{position:relative;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;}
+.overall-label{font-size:12px;color:var(--ink-soft);line-height:1.3;}
+.overall-label b{color:var(--ink);font-variant-numeric:tabular-nums;}
+
+.subtitle{color:var(--ink-soft);font-size:14.5px;margin:10px 0 24px;max-width:64ch;}
+
+.card{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;}
+.card + .card{margin-top:14px;}
+.section-label{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px;}
+
+.hoy{border:1px solid var(--teal);background:linear-gradient(var(--teal-tint),var(--teal-tint)),var(--bg-raised);position:relative;overflow:hidden;}
+.hoy-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-deep);background:var(--bg-raised);border:1px solid var(--teal);padding:3px 9px;border-radius:99px;margin-bottom:10px;}
+@media (prefers-color-scheme:dark){.hoy-chip{color:var(--teal);}}
+:root[data-theme="dark"] .hoy-chip{color:var(--teal);}
+.hoy h2{font-size:21px;margin-bottom:4px;}
+.hoy .week-of{font-size:13px;color:var(--ink-soft);margin-bottom:12px;}
+.hoy .why{font-size:14px;color:var(--ink-soft);font-style:italic;margin:0 0 12px;line-height:1.5;}
+.hoy .steps{margin:0 0 14px;padding-left:22px;display:flex;flex-direction:column;gap:7px;}
+.hoy .steps li{font-size:14.5px;padding-left:2px;}
+.hoy-resources{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.hoy-mark{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);}
+.hoy-mark[data-done="true"]{background:var(--ink-faint);}
+.hoy-mark:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+
+.res-chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--teal-deep);background:var(--bg-raised);border:1px solid var(--line-strong);padding:4px 10px;border-radius:99px;text-decoration:none;white-space:nowrap;}
+@media (prefers-color-scheme:dark){.res-chip{color:var(--teal);}}
+:root[data-theme="dark"] .res-chip{color:var(--teal);}
+:root[data-theme="light"] .res-chip{color:var(--teal-deep);}
+.res-chip:hover{border-color:var(--teal);}
+.res-chip .en-flag{font-family:var(--mono);font-size:9px;letter-spacing:.04em;background:var(--amber-tint);color:var(--amber);border-radius:4px;padding:1px 4px;}
+
+.resumen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;}
+.resumen-item{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--bg-sunken);}
+.resumen-item .m-num{font-family:var(--mono);font-size:11px;color:var(--teal-deep);}
+@media (prefers-color-scheme:dark){.resumen-item .m-num{color:var(--teal);}}
+:root[data-theme="dark"] .resumen-item .m-num{color:var(--teal);}
+.resumen-item h3{font-size:14.5px;margin:3px 0 3px;font-family:var(--sans);font-weight:700;}
+.resumen-item p{font-size:12.5px;color:var(--ink-soft);margin:0;}
+.plan-stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+.stat{display:flex;flex-direction:column;}
+.stat-num{font-size:20px;font-variant-numeric:tabular-nums;}
+.stat-label{font-size:11.5px;color:var(--ink-faint);}
+
+.callout{border-left:3px solid var(--amber);background:var(--amber-tint);border-radius:0 8px 8px 0;padding:14px 18px;}
+.callout h3{font-size:14.5px;font-family:var(--sans);margin-bottom:6px;}
+.callout p{font-size:13.5px;color:var(--ink-soft);margin:0 0 8px;}
+.callout p:last-child{margin-bottom:0;}
+.callout a{color:var(--ink);}
+
+.controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:640px){.controls-grid{grid-template-columns:1fr;}}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.field label{font-size:12px;color:var(--ink-soft);}
+.field input[type="date"],.field input[type="time"]{font-family:var(--sans);font-size:14px;background:var(--bg-sunken);border:1px solid var(--line-strong);border-radius:6px;padding:7px 9px;color:var(--ink);}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:var(--bg);border:none;padding:9px 14px;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--sans);}
+.btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line-strong);}
+.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+.hint{font-size:12px;color:var(--ink-faint);margin-top:8px;line-height:1.5;}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:13.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:50;max-width:90vw;}
+textarea.ics-fallback{width:100%;height:120px;font-family:var(--mono);font-size:11px;background:var(--bg-sunken);border:1px solid var(--line-strong);border-radius:6px;padding:8px;color:var(--ink-soft);margin-top:10px;}
+
+.month-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin:26px 0 16px;}
+.month-tab{flex:none;min-width:150px;text-align:left;background:var(--bg-raised);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;font-family:var(--sans);}
+.month-tab .mt-num{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);}
+.month-tab .mt-theme{font-size:12.5px;font-weight:600;margin:2px 0 8px;line-height:1.3;color:var(--ink);}
+.month-tab .mt-bar{height:4px;border-radius:99px;background:var(--bg-sunken);overflow:hidden;}
+.month-tab .mt-bar i{display:block;height:100%;background:var(--teal);width:var(--p,0%);}
+.month-tab[aria-selected="true"]{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal) inset;}
+
+.week{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-raised);margin-bottom:10px;overflow:hidden;}
+.week-head{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;user-select:none;}
+.week-head .wk-badge{font-family:var(--mono);font-size:11px;color:var(--teal-deep);background:var(--teal-tint);border-radius:6px;padding:3px 7px;flex:none;}
+@media (prefers-color-scheme:dark){.week-head .wk-badge{color:var(--teal);}}
+:root[data-theme="dark"] .week-head .wk-badge{color:var(--teal);}
+.week-head .wk-theme{font-size:14.5px;font-weight:700;flex:1;}
+.week-head .wk-frac{font-family:var(--mono);font-size:12px;color:var(--ink-faint);font-variant-numeric:tabular-nums;}
+.week-head .wk-chevron{transition:transform .15s ease;color:var(--ink-faint);flex:none;}
+.week.open .wk-chevron{transform:rotate(90deg);}
+.week-body{display:none;border-top:1px solid var(--line);}
+.week.open .week-body{display:block;}
+.week-resources{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px 0;}
+.day-row{display:flex;gap:12px;padding:14px 16px;border-top:1px solid var(--line);align-items:flex-start;}
+.day-row:first-of-type{border-top:none;margin-top:12px;}
+.day-row.today{background:var(--amber-tint);}
+.day-check{flex:none;width:19px;height:19px;margin-top:2px;accent-color:var(--teal);cursor:pointer;}
+.day-main{flex:1;min-width:0;}
+.day-top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+.day-dow{font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;}
+.day-date{font-family:var(--mono);font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums;}
+.day-title{font-size:14.5px;font-weight:700;}
+.day-row.done .day-title{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--line-strong);}
+.today-flag{font-family:var(--mono);font-size:10px;letter-spacing:.07em;background:var(--amber);color:#fff;padding:2px 6px;border-radius:4px;}
+.day-why{font-size:13px;color:var(--ink-soft);font-style:italic;margin:5px 0 7px;line-height:1.5;}
+.day-steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;}
+.day-steps li{font-size:13.3px;color:var(--ink-soft);padding-left:2px;}
+.day-steps li::marker{color:var(--ink-faint);font-family:var(--mono);font-size:12px;}
+
+footer.pf{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);}
+a{color:inherit;}
+::selection{background:var(--teal);color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand-eyebrow">Hoja de ruta · 6 meses</span>
+      <h1>Bioinformática &amp; Datos</h1>
+    </div>
+    <div class="overall-wrap">
+      <div class="ring" id="overall-ring" style="--pct:0"><span id="overall-pct">0%</span></div>
+      <div class="overall-label">Progreso total<br><b id="overall-frac">0/156</b> sesiones</div>
+    </div>
+  </div>
+  <p class="subtitle">Plan diario de 2 horas para llegar al nivel mínimo que piden las ofertas de bioinformático, analista y científico de datos en Colombia. Cada día trae qué es el tema, en qué orden hacerlo, y dónde aprenderlo — en español siempre que existe una opción gratuita real; lo que queda en inglés está marcado.</p>
+
+  <div class="card" id="resumen-card">
+    <p class="section-label">Resumen del plan</p>
+    <div class="resumen-grid" id="resumen-grid"></div>
+    <div class="plan-stats">
+      <div class="stat"><span class="stat-num">26</span><span class="stat-label">semanas</span></div>
+      <div class="stat"><span class="stat-num">156</span><span class="stat-label">sesiones de 2h</span></div>
+      <div class="stat"><span class="stat-num">≈312</span><span class="stat-label">horas totales</span></div>
+      <div class="stat"><span class="stat-num">6/7</span><span class="stat-label">días de estudio (domingo libre)</span></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14px;">
+    <h3>Sobre el inglés en este plan</h3>
+    <p>Prioricé recursos en español reales y gratuitos en casi todos los temas (SQL, Python, Git, Docker, AWS, Nextflow, Machine Learning, PyTorch, FastAPI, Scrum/Jira). Donde no existe un equivalente gratuito de calidad, el recurso queda marcado <span class="res-chip" style="display:inline-flex;vertical-align:middle;"><span class="en-flag">EN</span></span> junto a su nombre — son pocos, y casi siempre son plataformas de práctica de código (donde lo que importa es el código, no el idioma) o documentación oficial puntual.</p>
+    <p>El inglés en sí (hablarlo, nivel B2-C1) no está dentro de estas 2 horas diarias, a propósito — llevalo aparte con un tutor real (<a href="https://www.italki.com" target="_blank" rel="noopener">italki</a> o <a href="https://www.cambly.com" target="_blank" rel="noopener">Cambly</a>) 30-45 min/día, en paralelo, sin depender de este plan.</p>
+  </div>
+
+  <div class="card hoy" id="hoy-card"></div>
+
+  <div class="card">
+    <p class="section-label">Recordatorios de calendario</p>
+    <div class="controls-grid">
+      <div>
+        <div class="field">
+          <label for="start-date">Fecha de inicio (se ajusta al lunes más cercano)</label>
+          <input type="date" id="start-date">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1;">
+          <label for="start-time">Hora de inicio</label>
+          <input type="time" id="start-time" value="18:00">
+        </div>
+        <div class="field" style="flex:1;">
+          <label for="end-time">Hora de fin</label>
+          <input type="time" id="end-time" value="20:00">
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="btn-ics">Descargar recordatorios</button>
+      <button class="btn secondary" id="btn-guide">Descargar guía completa (.md)</button>
+      <button class="btn secondary" id="btn-jump-today">Ir a hoy</button>
+    </div>
+    <p class="hint" id="ics-hint"></p>
+    <div id="ics-fallback" style="display:none;">
+      <p class="hint">Copia todo el contenido de aquí abajo y pégalo en un archivo nuevo llamado <code>recordatorios.ics</code>:</p>
+      <textarea class="ics-fallback" id="ics-text" readonly></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="section-label">Progreso (guardado en este navegador)</p>
+    <p class="hint" style="margin-top:0;">El check de cada día se guarda solo en este dispositivo. Si usas el plan también desde el teléfono, exporta el progreso aquí y luego impórtalo allá para mantenerlos iguales.</p>
+    <div class="btn-row">
+      <button class="btn secondary" id="btn-export">Exportar progreso (.json)</button>
+      <label class="btn secondary" style="cursor:pointer;">Importar progreso
+        <input type="file" accept="application/json" id="input-import" style="display:none;">
+      </label>
+    </div>
+  </div>
+
+  <div class="month-tabs" id="month-tabs" role="tablist"></div>
+  <div id="weeks-container"></div>
+
+  <footer class="pf">Plan generado a partir de vacantes reales revisadas en LinkedIn, Elempleo y Computrabajo (Colombia, julio 2026). Ajusta fechas y horarios cuando lo necesites — el progreso no se pierde.</footer>
+</div>
+
+<div id="toast" class="toast" style="display:none;"></div>
+
+<script>
+const DOW = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+const MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+
+const RESUMEN = [
+  {n:1, t:"Fundamentos sólidos", d:"SQL avanzado, estadística aplicada, Python/R reforzado, Git y Linux", w:"Semanas 1–4"},
+  {n:2, t:"Visualización y BI", d:"Power BI (DAX, modelado), Excel avanzado, storytelling con datos, cert. PL-300", w:"Semanas 5–8"},
+  {n:3, t:"Nube y contenedores", d:"AWS Cloud Practitioner, Docker, NoSQL/BigQuery", w:"Semanas 9–12"},
+  {n:4, t:"Machine Learning a fondo", d:"scikit-learn end-to-end, PyTorch, MLOps básico", w:"Semanas 13–16"},
+  {n:5, t:"Bioinformática aplicada + GenAI", d:"Nextflow sobre tu propio proyecto RNA-seq, APIs de LLM", w:"Semanas 17–20"},
+  {n:6, t:"Preparación laboral", d:"Agile/Jira, entrevistas técnicas y de comportamiento, portafolio final, aplicación activa", w:"Semanas 21–26"},
+];
+
+const PLAN = [
+{month:1,theme:"SQL: de intermedio a sólido",
+ res:[{n:"Curso de SQL en español (freeCodeCamp)",u:"https://www.freecodecamp.org/espanol/news/aprende-sql-curso-desde-cero-en-espanol/"},{n:"SQLZoo (práctica)",u:"https://sqlzoo.net/",en:true},{n:"DataLemur (práctica entrevistas)",u:"https://datalemur.com/",en:true}],
+ days:[
+ {t:"Filtros y ordenamiento avanzado",why:"WHERE combinado te deja filtrar por varias condiciones a la vez — es la base de cualquier consulta de negocio real.",steps:["Mira la sección de filtros del curso de SQL en español (freeCodeCamp): AND/OR/NOT, IN, BETWEEN, LIKE con comodines.","Practica: en SQLZoo, resuelve el módulo 'SELECT within SELECT' completo (10 ejercicios) — la interfaz es en inglés pero solo escribes código SQL."]},
+ {t:"JOINs a fondo",why:"Un JOIN combina datos de dos tablas relacionadas — es lo que más se usa y lo que más se pregunta en entrevistas.",steps:["Antes de programar nada: dibuja en papel los 4 tipos de JOIN (INNER, LEFT, RIGHT, FULL) como diagramas de Venn, para entender qué filas quedan y cuáles se pierden en cada uno.","Luego mira la sección de JOINs del curso de SQL en español y replica los ejemplos.","Practica combinando 2 tablas de un dataset simple hasta que te salga sin mirar la teoría."]},
+ {t:"Subconsultas y CTEs",why:"Una CTE (WITH) es una subconsulta con nombre — hace las queries complejas mucho más legibles.",steps:["Mira la sección de subconsultas del curso en español.","Escribe 3 subconsultas simples primero (dentro de un WHERE o SELECT).","Reescribe esas mismas 3 como CTE con WITH y compara — deberían dar el mismo resultado, más ordenado."]},
+ {t:"Agregaciones avanzadas",why:"GROUP BY + HAVING es cómo respondes preguntas tipo 'top 5 de X' o 'promedio por categoría'.",steps:["Repasa GROUP BY, HAVING y funciones de agregación (COUNT, SUM, AVG) en el curso en español.","Practica: SQLZoo, módulo 'More SQL' — 8 ejercicios de agregación, en orden."]},
+ {t:"Práctica intensiva",why:"Hoy no aprendes teoría nueva — solo repites lo de esta semana hasta que sea automático.",steps:["En StrataScratch, filtro SQL nivel Easy-Medium: resuelve 10 problemas de JOIN + agregación, cronometrado.","Anota las 3 dudas que más se repitan — resuélvelas mañana en tu propio proyecto."]},
+ {t:"Proyecto: 15 queries de negocio",why:"Aplicar todo lo de la semana sobre un caso real fija el conocimiento mejor que más ejercicios sueltos.",steps:["Descarga la base de datos de ejemplo Chinook (SQLite) e instálala localmente.","Escribe 15 consultas que respondan preguntas de negocio reales: top clientes, ventas por mes, producto más vendido, etc. — usa JOIN, GROUP BY y al menos una CTE.","Sube el archivo .sql a un repositorio de práctica en tu GitHub."]},
+]},
+{month:1,theme:"SQL avanzado: window functions y optimización",
+ res:[{n:"Funciones de ventana — curso interactivo en español",u:"https://learnsql.es/curso/funciones-ventana/"},{n:"Documentación PostgreSQL (referencia)",u:"https://www.postgresql.org/docs/current/functions-window.html",en:true}],
+ days:[
+ {t:"Window functions I",why:"Una window function calcula sobre un grupo de filas sin colapsarlas en una sola, a diferencia de GROUP BY — por eso puedes ver 'puesto en el ranking' fila por fila.",steps:["Curso de funciones de ventana en español: módulos de ROW_NUMBER, RANK y DENSE_RANK.","Practica cada una sobre tu base Chinook y compara qué diferencia hay entre las tres."]},
+ {t:"Window functions II",why:"LAG/LEAD comparan una fila con la anterior/siguiente — típico para 'cuánto cambió respecto al mes pasado'.",steps:["Continúa el curso en español: LAG, LEAD y SUM/AVG con OVER (PARTITION BY).","Practica: 6 ejercicios de window functions en StrataScratch (en inglés, pero el patrón ya lo conoces del curso de hoy)."]},
+ {t:"CTEs recursivas y vistas",why:"Una vista guarda una consulta con nombre para reutilizarla — útil cuando repites la misma lógica varias veces.",steps:["Busca en la documentación de Postgres la sección WITH RECURSIVE y prueba el ejemplo oficial (es en inglés, pero el código SQL se lee igual en cualquier idioma).","Crea 2 vistas (CREATE VIEW) reutilizables sobre tu base Chinook."]},
+ {t:"Rendimiento: EXPLAIN e índices",why:"EXPLAIN te muestra cómo la base de datos ejecuta tu consulta — clave para saber por qué algo es lento.",steps:["Corre EXPLAIN ANALYZE sobre 3 de tus queries más lentas de esta semana.","Crea un índice sobre la columna que más filtras y vuelve a correr EXPLAIN — compara el plan antes/después."]},
+ {t:"Fechas y series temporales",why:"Casi todo reporte de negocio agrupa por fecha (mes, trimestre, año) — es su propia habilidad dentro de SQL.",steps:["Practica DATE_TRUNC, EXTRACT y diferencias de fechas sobre una tabla con timestamps.","StrataScratch: 6 ejercicios filtrados por el tema 'Dates'."]},
+ {t:"Proyecto: reporte optimizado",why:"Cerrar la semana rehaciendo tu propio trabajo con lo nuevo demuestra que de verdad lo aprendiste.",steps:["Recrea las 5 preguntas de negocio de la semana pasada, esta vez usando window functions.","Sube el .sql final a tu repo de práctica en GitHub.","Nota: muchas empresas en Colombia usan SQL Server, no Postgres — dedica 5 minutos a ver las diferencias clave (TOP en vez de LIMIT, GETDATE(), ISNULL) para no sorprenderte en una entrevista."]},
+]},
+{month:1,theme:"Estadística aplicada: repaso profundo",
+ res:[{n:"Khan Academy — Estadística (español)",u:"https://es.khanacademy.org/math/statistics-probability"},{n:"StatQuest (YouTube, con subtítulos en español)",u:"https://www.youtube.com/@statquest",en:true}],
+ days:[
+ {t:"Distribuciones y TCL",why:"El Teorema Central del Límite es la razón por la que podemos hacer inferencia estadística confiable a partir de muestras.",steps:["Khan Academy: módulo de distribuciones de probabilidad (ya en español).","StatQuest: activa subtítulos en español y mira el video del Teorema Central del Límite.","Escribe en tus palabras por qué importa para hacer inferencia — si no puedes explicarlo simple, repite el video."]},
+ {t:"Pruebas de hipótesis I",why:"Un t-test te dice si la diferencia entre dos grupos es real o es solo azar.",steps:["StatQuest (subtítulos en español): playlist de Hypothesis Testing, enfócate en el t-test.","Aplica un t-test sobre tu propio dataset de bioestadística ya publicado y compara con lo que ya habías encontrado."]},
+ {t:"Pruebas de hipótesis II",why:"Chi-cuadrado y ANOVA son las versiones de 'diferencia entre grupos' para datos categóricos y para más de dos grupos.",steps:["StatQuest: Chi-square test y ANOVA (subtítulos en español).","Khan Academy: ejercicios de chi-cuadrado en español."]},
+ {t:"A/B testing",why:"El A/B testing es cómo las empresas de datos deciden si un cambio funcionó — mismo principio del t-test, aplicado a producto.",steps:["Investiga (StatQuest + artículos) qué es tamaño de muestra, poder estadístico y p-valor en el contexto de un experimento A/B.","Diseña por escrito un experimento A/B ficticio para un producto de salud digital: qué mides, cuál es tu hipótesis, cuántos usuarios necesitas."]},
+ {t:"Diseño de experimentos y causalidad",why:"Correlación no es causalidad — entender variables de confusión es lo que separa un análisis ingenuo de uno confiable, y es justo lo que te van a preguntar en una entrevista de analista.",steps:["Investiga (artículos + StatQuest) la diferencia entre correlación, causalidad y variables de confusión.","Diseña por escrito un experimento controlado para un caso de salud digital, identificando 2-3 posibles sesgos que podrían arruinar tu conclusión."]},
+ {t:"Práctica integradora",why:"Cerrar la semana metiendo esto en un proyecto real tuyo, no uno de ejemplo.",steps:["En tu repo bioestadistica-expresion-genica, aplica y documenta 3 pruebas estadísticas nuevas que no usaste en el análisis original.","Agrégalas como una sección nueva en el README."]},
+]},
+{month:1,theme:"Python y R: de nivel medio a profesional",
+ res:[{n:"Curso de Python y Pandas en español (YouTube)",u:"https://www.youtube.com/playlist?list=PLVs9JdE6ZZh0RBT7lIPxUkcTmAUhMEimn"},{n:"Curso de Git y GitHub en español (freeCodeCamp)",u:"https://www.freecodecamp.org/espanol/news/aprende-git-y-github-curso-desde-cero"},{n:"R for Data Science (referencia)",u:"https://r4ds.hadley.nz/",en:true}],
+ days:[
+ {t:"Python orientado a objetos",why:"Una clase te deja empaquetar datos + funciones juntos — útil para no repetir el mismo código en cada script.",steps:["Repasa funciones y clases básicas de Python (cualquier sección de introducción a POO del curso en español que tengas a mano).","Refactoriza un script tuyo existente (por ejemplo del proyecto de ML) usando al menos una clase propia."]},
+ {t:"Pandas avanzado",why:"merge y pivot_table son las dos operaciones de pandas que más se usan en trabajo real y menos se enseñan a fondo al inicio.",steps:["Curso de Pandas en español: mira los módulos de merge, pivot_table y groupby con más de un nivel.","Aplica merge y pivot_table sobre un dataset de un proyecto tuyo anterior."]},
+ {t:"Buenas prácticas Python",why:"Un entorno virtual evita que las dependencias de un proyecto rompan las de otro — y los tests simples te avisan si rompiste algo sin darte cuenta.",steps:["Aprende qué es un entorno virtual (venv) y cómo crear uno.","Instala pytest y escribe 5 tests simples para funciones de un script tuyo."]},
+ {t:"R con tidyverse avanzado",why:"purrr te deja aplicar la misma función a muchos elementos sin copiar y pegar código — el equivalente en R de automatizar lo repetitivo.",steps:["R for Data Science: capítulos de funciones propias e iteración con purrr (en inglés, pero el código R es igual; apóyate en el traductor del navegador para el texto si lo necesitas).","Reescribe una parte repetitiva de tu Rmd de bioestadística como una función propia."]},
+ {t:"Git y GitHub avanzado",why:"Una rama (branch) te deja probar cambios sin arriesgar tu código que ya funciona — así trabaja cualquier equipo real.",steps:["Curso de Git y GitHub en español (freeCodeCamp): mira la parte de ramas y Pull Requests.","Practica: crea una rama, haz un cambio, y ábrete un Pull Request a ti mismo en un repo de prueba, para ver el flujo completo."]},
+ {t:"Linux y Bash esencial",why:"Vas a necesitar una terminal Linux para Docker y Nextflow más adelante — mejor instalarla ya y perderle el miedo con calma.",steps:["Si usas Windows: instala WSL2 (Windows Subsystem for Linux) hoy — es el entorno que vas a usar para Docker (semana 11) y Nextflow (semana 17), que no corren nativos en Windows.","Aprende los comandos básicos de terminal: cd, ls, mv, cp, mkdir (busca 'comandos básicos de Linux en español' si quieres un repaso rápido).","Escribe un script .sh simple que organice archivos de una carpeta por extensión."]},
+]},
+{month:2,theme:"Power BI: fundamentos",
+ res:[{n:"Microsoft Learn — Power BI Data Analyst (español)",u:"https://learn.microsoft.com/es-es/training/powerplatform/power-bi"}],
+ days:[
+ {t:"Conectar datos y Power Query",why:"Power Query es donde limpias y transformas los datos antes de que lleguen al reporte — es el paso que más tiempo real se lleva en un trabajo de BI.",steps:["Microsoft Learn (ya en español): módulo 'Prepara los datos en Power BI'.","Importa un CSV de un proyecto tuyo y aplica 3 transformaciones en Power Query (quitar columnas, cambiar tipos, filtrar filas)."]},
+ {t:"Modelado de datos",why:"Un esquema estrella (una tabla de hechos + tablas de dimensión) es la forma estándar de organizar datos para que Power BI calcule rápido y bien.",steps:["Microsoft Learn: módulo 'Modela los datos en Power BI'.","Crea un esquema estrella simple (2 tablas de hechos, 1 de dimensión) con datos propios."]},
+ {t:"DAX básico",why:"DAX es el lenguaje de fórmulas de Power BI — sin él, tu reporte solo puede sumar columnas, no calcular nada con lógica de negocio.",steps:["Microsoft Learn: módulo 'Introducción a DAX'.","Crea 5 medidas básicas (SUM, AVERAGE, COUNTROWS) sobre tu modelo."]},
+ {t:"DAX intermedio",why:"CALCULATE cambia el contexto de filtro de una medida — es la función más usada y más confusa de DAX, vale la pena entenderla bien desde ya.",steps:["Microsoft Learn: módulo sobre CALCULATE y contexto de filtro.","Crea 3 medidas usando CALCULATE con distintos filtros y compara resultados."]},
+ {t:"Visualización y diseño",why:"El mismo dato en el gráfico equivocado confunde en vez de aclarar — elegir bien el visual es parte del trabajo, no un detalle estético.",steps:["Microsoft Learn: buenas prácticas de diseño de visuales.","Diseña 4 visuales distintos con tus datos: tabla, gráfico de barras, tarjeta KPI, y un mapa o línea de tiempo."]},
+ {t:"Proyecto: dashboard bioestadística",why:"Convertir un análisis que ya hiciste en R en un dashboard interactivo es justo el tipo de trabajo que un analista de BI hace a diario.",steps:["Recrea como dashboard interactivo de Power BI los hallazgos de tu proyecto de bioestadística (Los Simpson).","Publica 2-3 capturas del dashboard en el README de ese repositorio."]},
+]},
+{month:2,theme:"Power BI avanzado + certificación PL-300",
+ res:[{n:"Microsoft Learn — ruta de certificación PL-300 (español)",u:"https://learn.microsoft.com/es-es/credentials/certifications/exams/pl-300/"},{n:"Guy in a Cube (YouTube, tips prácticos)",u:"https://www.youtube.com/@GuyInACube",en:true}],
+ days:[
+ {t:"DAX avanzado: time intelligence",why:"Time intelligence son las funciones DAX que comparan periodos ('vs. el año pasado', 'acumulado del mes') — casi todo dashboard de negocio las necesita.",steps:["Microsoft Learn: funciones de time intelligence (DATEADD, SAMEPERIODLASTYEAR).","Busca en Guy in a Cube un video sobre time intelligence y replica el ejemplo paso a paso."]},
+ {t:"Power BI Service",why:"Power BI Service es donde publicas el reporte para que otros lo vean sin instalar nada, y donde configuras que los datos se actualicen solos.",steps:["Microsoft Learn: módulo 'Administra estaciones de trabajo y conjuntos de datos en Power BI'.","Publica tu dashboard de la semana pasada a Power BI Service y configura una actualización programada."]},
+ {t:"Seguridad: RLS",why:"RLS (seguridad a nivel de fila) hace que cada usuario vea solo sus propios datos en el mismo reporte — típico requisito en empresas reales.",steps:["Microsoft Learn: módulo sobre Row-Level Security.","Configura un rol RLS simple sobre tu propio modelo."]},
+ {t:"Repaso general PL-300",why:"Antes del simulacro, ubica dónde están tus huecos reales en vez de repasar todo por igual.",steps:["Revisa la ruta oficial completa de Microsoft Learn en español, marcando los temas donde te sientas menos seguro."]},
+ {t:"Simulacro de examen",why:"Un simulacro te dice exactamente qué te falta, mejor que seguir viendo más teoría.",steps:["Haz el módulo de práctica oficial de Microsoft Learn para PL-300.","Repasa a fondo cada pregunta que hayas fallado, no solo la respuesta correcta sino por qué."]},
+ {t:"Agenda tu certificación (no la presentes hoy)",why:"El PL-300 real suele pedir 40-60 horas de preparación total, no 24 — mejor agendarlo con margen que quemarte el intento.",steps:["Agenda el examen para dentro de 2-4 semanas, no para hoy — revisa el valor vigente en Microsoft (tiene costo).","Sigue repasando los domingos hasta la fecha del examen.","Usa el día de hoy para reforzar tus 2 temas más débiles del simulacro."]},
+]},
+{month:2,theme:"Excel avanzado y storytelling con datos",
+ res:[{n:"Microsoft Learn — Excel (español)",u:"https://learn.microsoft.com/es-es/training/browse/?products=excel"}],
+ days:[
+ {t:"Fórmulas avanzadas",why:"BUSCARX reemplaza a BUSCARV/VLOOKUP con menos errores — es la función que más usan los analistas de Excel avanzado hoy.",steps:["Microsoft Learn: módulo de fórmulas avanzadas de Excel.","Practica BUSCARX, SI anidados e ÍNDICE/COINCIDIR sobre una base propia."]},
+ {t:"Tablas dinámicas y Power Pivot",why:"Power Pivot te deja combinar varias tablas dentro de Excel mismo, sin fórmulas de búsqueda — como un Power BI chiquito adentro de Excel.",steps:["Microsoft Learn: módulo de tablas dinámicas avanzadas.","Arma un reporte con Power Pivot combinando 2 tablas relacionadas."]},
+ {t:"Power Query como automatización",why:"Power Query reemplaza lo que antes se hacía con macros — transformas los datos una vez y el proceso queda guardado para repetirlo con un clic.",steps:["Microsoft Learn: funciones y parámetros en Power Query (lenguaje M).","Convierte un reporte repetitivo tuyo en una consulta de Power Query reutilizable, en vez de rehacerlo a mano cada vez."]},
+ {t:"Storytelling con datos: principios",why:"El objetivo de un gráfico es que alguien entienda algo en 5 segundos — no mostrar todos los datos que tengas.",steps:["Lee las entradas gratuitas del blog de storytellingwithdata.com sobre elegir el gráfico correcto y quitar 'chartjunk' (adornos que no aportan) — no hace falta comprar el libro.","Identifica 3 errores de diseño en gráficos que hayas hecho antes."]},
+ {t:"Rediseño de dashboards",why:"Criticar dashboards ajenos te entrena el ojo más rápido que solo hacer los tuyos.",steps:["Busca 2-3 dashboards reales (uno bueno, uno malo) y escribe qué funciona y qué no en cada uno.","Aplica lo aprendido rediseñando un gráfico tuyo."]},
+ {t:"Práctica integradora",why:"Cerrar la semana comparando tu 'antes y después' te muestra cuánto mejoraste de verdad.",steps:["Toma un reporte o gráfico antiguo tuyo y rehazlo aplicando Excel avanzado + storytelling.","Guarda las dos versiones (antes/después) para comparar."]},
+]},
+{month:2,theme:"Proyecto integrador de BI",
+ res:[{n:"Kaggle Datasets (para elegir datos)",u:"https://www.kaggle.com/datasets",en:true}],
+ days:[
+ {t:"Elección y limpieza de datos",why:"Un proyecto ancla mejor tu portafolio si cuenta una historia propia, no un dataset genérico que usó todo el mundo.",steps:["Recomendado: usa tus propios datos clínicos/genómicos de un proyecto anterior — da una historia de portafolio más fuerte. Si prefieres algo nuevo, elige un dataset público de Kaggle (idealmente de salud o biología) que no hayas usado.","Limpieza con Python/pandas: revisa nulos, duplicados y tipos de datos."]},
+ {t:"Análisis exploratorio en SQL",why:"Antes de armar el dashboard, entender los datos con SQL evita construir un reporte sobre supuestos equivocados.",steps:["Carga los datos limpios a una base local (SQLite o Postgres).","Escribe 10 queries exploratorias usando lo de las semanas 1 y 2 (JOINs, agregaciones, window functions si aplica)."]},
+ {t:"Modelado en Power BI",why:"El modelo es la base invisible del dashboard — si está mal armado, todo lo de encima falla o es lento.",steps:["Conecta los datos limpios a Power BI.","Construye el modelo: define relaciones entre tablas y crea las medidas DAX que vas a necesitar."]},
+ {t:"Dashboard final",why:"Un dashboard se evalúa por si alguien entiende la historia en 30 segundos, no por cuántos gráficos tiene.",steps:["Diseña el dashboard aplicando los principios de storytelling de la semana pasada.","Revisa: ¿alguien que no conoce los datos entendería el mensaje principal en menos de 30 segundos?"]},
+ {t:"Documentación",why:"Un proyecto sin README es invisible para un reclutador que lo mira 20 segundos.",steps:["Escribe el README: pregunta de negocio, fuente de datos, proceso, hallazgos principales.","Agrega 3-4 capturas del dashboard."]},
+ {t:"Publicación",why:"Un proyecto que no está publicado no existe para efectos de portafolio.",steps:["Sube el proyecto a GitHub.","Publícalo en tu portafolio web y agrégalo a LinkedIn, sección Proyectos."]},
+]},
+{month:3,theme:"AWS: fundamentos de nube",
+ res:[{n:"AWS Skill Builder — Cloud Practitioner Essentials (español)",u:"https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials-espaol-de-espaa/22YKTHGJVW"}],
+ days:[
+ {t:"Conceptos cloud",why:"Entender IaaS/PaaS/SaaS y qué es una 'región' es la base para leer cualquier oferta de trabajo que pida nube.",steps:["AWS Skill Builder: usa la versión en español (ya la tienes arriba) — módulo de introducción a la nube.","Crea tu cuenta AWS Free Tier si no la tienes (ojo: pide tarjeta de crédito, aunque no te cobre si te quedas en la capa gratuita).","Si tu meta es más un puesto de BI local que de bioinformática, Azure Data Fundamentals (DP-900) es una alternativa más liviana y ligada a Power BI — puedes cambiarla por AWS si te calza mejor."]},
+ {t:"IAM: identidad y permisos",why:"IAM controla quién puede hacer qué dentro de tu cuenta de AWS — es lo primero que configura cualquier empresa por seguridad.",steps:["AWS Skill Builder (español): módulo de IAM.","Crea un usuario IAM propio con permisos limitados — no uses la cuenta root para practicar, es mala práctica de seguridad real."]},
+ {t:"S3: almacenamiento",why:"S3 es donde casi todo pipeline de datos guarda sus archivos crudos y resultados — el servicio de AWS más usado en la práctica.",steps:["AWS Skill Builder (español): módulo de S3.","Crea un bucket S3 y sube/descarga un archivo de prueba desde la consola."]},
+ {t:"EC2 básico",why:"EC2 es una máquina virtual en la nube — la unidad básica de cómputo de AWS.",steps:["AWS Skill Builder (español): módulo de EC2.","Lanza una instancia EC2 de la capa gratuita y conéctate por SSH (recuerda apagarla al terminar para no gastar horas gratis)."]},
+ {t:"Bases de datos en AWS",why:"RDS, Redshift y Glue son 3 piezas distintas: base de datos transaccional, almacén analítico, y herramienta de transformación — se confunden mucho al inicio.",steps:["AWS Skill Builder (español): módulo de bases de datos (RDS) y conceptos de Redshift/Glue.","Escribe un cuadro comparando cuándo usarías RDS vs Redshift vs S3 para un caso de datos genómicos."]},
+ {t:"Práctica hands-on",why:"Nada fija más el concepto que hacerlo una vez con tus propios datos.",steps:["Sube el dataset de uno de tus proyectos bioinformáticos a un bucket S3.","Documenta el paso a paso con capturas en un archivo Markdown."]},
+]},
+{month:3,theme:"AWS para datos + certificación",
+ res:[{n:"AWS Skill Builder (español)",u:"https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials-espaol-de-espaa/22YKTHGJVW"}],
+ days:[
+ {t:"AWS Glue (ETL)",why:"Glue automatiza el proceso de mover y transformar datos entre servicios — el 'pegante' de un pipeline de datos en AWS.",steps:["AWS Skill Builder (español): módulo conceptual de Glue.","Diagrama cómo sería un flujo ETL de tus datos FASTQ pasando por Glue hacia Redshift."]},
+ {t:"AWS Lambda básico",why:"Lambda corre código sin que tengas que mantener un servidor prendido — ideal para tareas cortas y automáticas.",steps:["AWS Skill Builder (español): módulo de Lambda.","Crea una función Lambda simple (por ejemplo, que reciba un texto y devuelva una transformación) desde la consola."]},
+ {t:"Seguridad y costos",why:"Entender costos evita sorpresas en la factura, y es justo lo que un examen de certificación pregunta bastante.",steps:["AWS Skill Builder (español): módulo del Well-Architected Framework (pilares de seguridad y costos).","Revisa la calculadora de precios de AWS para tu ejemplo de S3 + Lambda de la semana pasada."]},
+ {t:"Repaso general",why:"Antes del simulacro, identifica huecos reales en vez de repasar todo por igual.",steps:["Repasa la ruta completa de Cloud Practitioner Essentials en español, marcando los temas más débiles."]},
+ {t:"Simulacro de examen",why:"Un simulacro te dice exactamente qué falta, mejor que seguir viendo teoría.",steps:["Busca un simulacro del examen AWS Cloud Practitioner (CLF-C02).","Repasa a fondo cada pregunta que falles, entendiendo el por qué."]},
+ {t:"Agenda tu certificación (no la presentes hoy)",why:"Mejor agendar con margen que quemar el intento por apurarte.",steps:["Agenda el examen AWS Cloud Practitioner para dentro de 2-4 semanas (tiene costo, revisa el valor vigente en aws.amazon.com/certification).","Sigue repasando los domingos hasta la fecha del examen.","Usa el día de hoy para reforzar tus 2 temas más débiles del simulacro."]},
+]},
+{month:3,theme:"Docker: contenedores",
+ res:[{n:"Docker de novato a pro — curso completo en español (YouTube)",u:"https://www.youtube.com/watch?v=CV_Uf3Dq-EU"},{n:"Docker — Get Started (documentación oficial)",u:"https://docs.docker.com/get-started/",en:true}],
+ days:[
+ {t:"Conceptos e instalación",why:"Un contenedor empaqueta tu código con todo lo que necesita para correr — así evitas el clásico 'en mi máquina sí funciona'.",steps:["Instala Docker Desktop (con el backend WSL2 si estás en Windows, ver semana 4).","Mira la primera parte del curso de Docker en español: qué es una imagen y qué es un contenedor.","Corre tu primer contenedor: docker run hello-world."]},
+ {t:"Tu primer Dockerfile",why:"Un Dockerfile es la receta para construir tu propia imagen — el paso que te deja empaquetar TU código, no solo usar imágenes de otros.",steps:["Sigue la parte del curso en español sobre construir imágenes propias.","Escribe un Dockerfile que empaquete un script simple de Python."]},
+ {t:"Volúmenes y redes",why:"Un volumen guarda datos aunque el contenedor se borre — sin esto, perderías todo cada vez que reinicias.",steps:["Curso en español: sección de volúmenes y redes (networking).","Practica montar un volumen para que un archivo persista entre ejecuciones del contenedor."]},
+ {t:"Docker Compose",why:"Compose te deja levantar varios contenedores juntos (por ejemplo tu app + una base de datos) con un solo comando.",steps:["Curso en español: introducción a Docker Compose.","Escribe un docker-compose.yml simple que levante 2 servicios."]},
+ {t:"Contenerizar un proyecto propio",why:"Practicar con tu propio código, no con el ejemplo del curso, es lo que realmente te prepara.",steps:["Elige un script de Python o R de un proyecto tuyo anterior.","Escríbele un Dockerfile funcional y verifica que corra igual dentro del contenedor que en tu máquina."]},
+ {t:"Proyecto: modelo ML dockerizado",why:"Cerrar la semana dockerizando un proyecto real de portafolio es más valioso que otro ejercicio suelto.",steps:["Dockeriza tu proyecto de clasificación de expresión génica con ML.","Sube el Dockerfile al repositorio con instrucciones claras de uso en el README."]},
+]},
+{month:3,theme:"NoSQL, BigQuery y cierre del trimestre",
+ res:[{n:"MongoDB University — curso M001",u:"https://learn.mongodb.com/",en:true},{n:"BigQuery — guía de inicio rápido",u:"https://cloud.google.com/bigquery/docs",en:true}],
+ days:[
+ {t:"MongoDB: conceptos",why:"MongoDB guarda datos como documentos flexibles en vez de tablas fijas — útil cuando cada registro puede tener campos distintos.",steps:["MongoDB University, curso M001 (en inglés, pero la interfaz de MongoDB Compass es visual): módulos 1-2, documentos y colecciones.","Instala MongoDB Compass y explora una base de datos de ejemplo."]},
+ {t:"MongoDB: consultas",why:"Las consultas en MongoDB usan un formato distinto a SQL (find + filtros en JSON) — vale la pena ver el patrón una vez.",steps:["MongoDB University M001: módulo de consultas (find, filtros, proyecciones).","Practica 8 consultas sobre la base de ejemplo."]},
+ {t:"SQL vs NoSQL",why:"Saber CUÁNDO usar cada uno importa más que saber usar los dos — es pregunta típica de entrevista conceptual.",steps:["Escribe una comparación propia (ventajas/desventajas) aplicada a un caso de datos clínicos o genómicos: ¿cuándo usarías MongoDB y cuándo SQL?"]},
+ {t:"Introducción a BigQuery",why:"BigQuery es SQL corriendo sobre datos masivos en la nube de Google — mismo lenguaje que ya sabes, escala distinta.",steps:["Sigue la guía de inicio rápido de BigQuery (tiene capa gratuita; puedes cambiar el idioma de la documentación a español desde el sitio de Google Cloud).","Corre tus primeras 5 queries SQL sobre un dataset público de BigQuery."]},
+ {t:"Proyecto: migrar una consulta",why:"Ver qué cambia (y qué no) al mover una query de Postgres a BigQuery te prepara para trabajar en cualquiera de los dos.",steps:["Toma una query tuya de las semanas 1-2 y adáptala para correr en BigQuery.","Documenta qué diferencias de sintaxis encontraste."]},
+ {t:"Repaso y consolidación del trimestre",why:"Cerrar el trimestre repasando y actualizando el portafolio consolida 3 meses de trabajo real.",steps:["Repasa tus notas de SQL, Power BI, AWS y Docker.","Mantenimiento de SQL: resuelve 3 problemas en StrataScratch o DataLemur — no dejes que se oxide de aquí a las entrevistas.","Actualiza tu portafolio con los proyectos nuevos de este mes."]},
+]},
+{month:4,theme:"Machine Learning: fundamentos sólidos",
+ res:[{n:"Kaggle Learn: Intro/Intermediate ML",u:"https://www.kaggle.com/learn",en:true}],
+ days:[
+ {t:"Preprocesamiento y feature engineering",why:"Un modelo es tan bueno como las variables que le das de entrada — mejorar las variables suele ganar más que cambiar de modelo.",steps:["Kaggle Learn: micro-curso Feature Engineering (en inglés, pero es en su mayoría código y gráficos).","Aplica 3 técnicas nuevas de feature engineering sobre un dataset propio."]},
+ {t:"Modelos supervisados",why:"Regresión y árboles de decisión son la base de casi todo lo demás en ML supervisado — sin esto, lo avanzado no tiene sentido.",steps:["Kaggle Learn: 'Intro to Machine Learning' completo.","Repasa regresión lineal/logística y árboles de decisión con un dataset simple."]},
+ {t:"Validación cruzada y métricas",why:"Sin validación cruzada puedes creer que tu modelo funciona bien cuando en realidad memorizó los datos de entrenamiento.",steps:["Kaggle Learn: 'Intermediate Machine Learning', módulo de cross-validation.","Aplica k-fold cross-validation a un modelo tuyo anterior y compara con tu evaluación original."]},
+ {t:"Datos desbalanceados",why:"Cuando una clase es mucho más rara que otra (por ejemplo, enfermedad rara vs. sana), el modelo tiende a ignorarla si no lo corriges.",steps:["Investiga SMOTE, class_weight y undersampling en la documentación de scikit-learn.","Aplica una técnica de balanceo a un dataset con clases desbalanceadas."]},
+ {t:"Selección de variables",why:"Menos variables, bien elegidas, suelen dar un modelo más simple de explicar y menos propenso a sobreajuste.",steps:["Repasa LASSO y Recursive Feature Elimination (RFE) en la documentación de scikit-learn.","Aplica RFE sobre un dataset nuevo y compara las variables elegidas contra tu criterio manual."]},
+ {t:"Práctica Kaggle",why:"Una competencia real te obliga a tomar decisiones de principio a fin, no solo ejercicios sueltos.",steps:["Participa en una competencia de nivel principiante en Kaggle (Titanic o similar).","Documenta tu proceso y súbelo como notebook público."]},
+]},
+{month:4,theme:"Machine Learning intermedio-avanzado",
+ res:[{n:"CURSO de Machine Learning desde cero (español, YouTube)",u:"https://www.youtube.com/watch?v=xyU2pzKTQE0"},{n:"Documentación scikit-learn (referencia)",u:"https://scikit-learn.org/stable/user_guide.html",en:true}],
+ days:[
+ {t:"SVM y ensambles",why:"Random Forest y Gradient Boosting son, en la práctica, los modelos que más ganan competencias y más se usan en empresas.",steps:["Mira la sección de SVM y ensambles del curso de Machine Learning en español.","Compara Random Forest vs Gradient Boosting sobre un mismo dataset."]},
+ {t:"Clustering avanzado",why:"DBSCAN encuentra grupos de forma irregular donde k-means falla — útil cuando tus datos no forman círculos limpios.",steps:["Documentación de scikit-learn: DBSCAN y clustering jerárquico.","Aplica DBSCAN sobre un dataset donde k-means no te haya funcionado bien antes."]},
+ {t:"PCA/UMAP en dataset nuevo",why:"Ya sabes hacer PCA de tu TFM — hoy es aplicar la misma herramienta a datos distintos para confirmar que entendiste el concepto y no solo copiaste el código.",steps:["Usa tu propio código de PCA de proyectos anteriores como punto de partida.","Aplica PCA y UMAP sobre un dataset nuevo y compara qué tan bien separan los grupos."]},
+ {t:"Pipelines de scikit-learn",why:"Un Pipeline encadena limpieza + modelo en un solo objeto — evita el error clásico de aplicar una transformación distinta en entrenamiento y en producción.",steps:["Documentación oficial: Pipeline y ColumnTransformer.","Reescribe un flujo tuyo de preprocesamiento + modelo como un Pipeline único."]},
+ {t:"Interpretabilidad de modelos",why:"SHAP te dice qué variable pesó más en cada predicción — cada vez más pedido porque 'una caja negra' no convence a un negocio.",steps:["Documentación de SHAP: tutorial básico.","Aplica SHAP sobre uno de tus modelos para explicar qué variables pesan más."]},
+ {t:"Sube de nivel tu proyecto de ML propio",why:"Mejor que un dataset nuevo: retomar tu propio repo con técnicas más profesionales cuenta una historia de portafolio más fuerte que repetir un dataset de juguete.",steps:["Retoma tu repo de clasificación de expresión génica con ML.","Súbelo de nivel con todo lo de esta semana: Pipeline, cross-validation, manejo de desbalance, SHAP.","Documenta los cambios en el README."]},
+]},
+{month:4,theme:"Deep Learning con PyTorch",
+ res:[{n:"¡PyTorch desde cero! (español, YouTube)",u:"https://www.youtube.com/watch?v=QetoD5LXlEg"},{n:"PyTorch — 60 Minute Blitz (documentación oficial)",u:"https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html",en:true}],
+ days:[
+ {t:"Redes neuronales: repaso",why:"Ya construiste una CNN en TensorFlow/Keras para tu proyecto de malaria — hoy es refrescar el concepto antes de verlo en un framework distinto.",steps:["Mira la introducción de '¡PyTorch desde cero!' en español.","Repasa tus propios apuntes del proyecto CNN de malaria como base conceptual."]},
+ {t:"Tensores y autograd",why:"Un tensor es como un array de NumPy pero que PyTorch puede derivar automáticamente — así es como la red 'aprende'.",steps:["Continúa el curso en español: creación y operaciones básicas con tensores.","Si quieres más detalle técnico, complementa con la sección 'Tensors' y 'Autograd' del 60 Minute Blitz oficial (en inglés, pero es sobre todo código)."]},
+ {t:"Tu primera red en PyTorch",why:"Construir una red simple desde cero te obliga a entender cada pieza, en vez de copiar un modelo ya armado.",steps:["Sigue la parte del curso en español donde arman una red neuronal simple.","Construye tu propia red fully-connected simple sobre un dataset pequeño."]},
+ {t:"CNNs en PyTorch",why:"Vas a comparar la misma arquitectura (CNN) en dos frameworks distintos — eso es justo lo que se pregunta en una entrevista técnica de deep learning.",steps:["Sigue el ejemplo de clasificación de imágenes con CNN del curso en español (o el ejemplo oficial de PyTorch si el curso no llega tan lejos).","Compara la arquitectura con la que usaste en TensorFlow/Keras para el proyecto de malaria."]},
+ {t:"Entrenamiento y regularización",why:"Dropout y early stopping evitan que el modelo memorice los datos de entrenamiento en vez de aprender el patrón general.",steps:["Busca (documentación o el mismo curso) cómo aplicar dropout, early stopping y schedulers de learning rate en PyTorch.","Aplica regularización a tu red y compara las métricas antes/después."]},
+ {t:"Proyecto: malaria en PyTorch",why:"Recrear tu propio proyecto en un framework nuevo es la mejor prueba de que entendiste el concepto y no solo el framework original.",steps:["Recrea tu clasificador de malaria en PyTorch — usa Google Colab (tiene GPU gratis) si tu computador no tiene una, entrenar en CPU puede ser muy lento.","Compara accuracy y tiempos de entrenamiento entre PyTorch y tu versión original en TensorFlow."]},
+]},
+{month:4,theme:"MLOps básico y cierre del mes",
+ res:[{n:"MLOps Zoomcamp (DataTalksClub, gratis)",u:"https://github.com/DataTalksClub/mlops-zoomcamp",en:true},{n:"Curso de introducción a FastAPI en español (YouTube)",u:"https://www.youtube.com/playlist?list=PLHftsZss8mw7pSRpCyd-TM4Mu43XdyB3R"}],
+ days:[
+ {t:"Versionado de experimentos",why:"MLflow guarda cada versión de tu modelo con sus métricas — sin esto, es fácil perder de vista cuál versión fue la que mejor funcionó.",steps:["MLOps Zoomcamp, módulo 2 (experiment tracking): instala y prueba MLflow localmente.","Registra 3 versiones de un modelo tuyo con sus métricas en MLflow."]},
+ {t:"Empaquetar un modelo como API",why:"Un endpoint REST es solo una URL que recibe datos y devuelve una respuesta — así es como tu modelo deja de ser un notebook y se vuelve algo que otro sistema puede usar.",steps:["Curso de FastAPI en español: sigue la introducción y el primer endpoint.","Expón uno de tus modelos entrenados como un endpoint simple de predicción."]},
+ {t:"Monitoreo de modelos: concepto",why:"Un modelo se puede volver menos preciso con el tiempo si el mundo real cambia (data drift) — monitorear es notar eso antes de que sea un problema.",steps:["MLOps Zoomcamp: módulo de monitoring (lectura conceptual, no hace falta implementar todo).","Resume en tus palabras qué es data drift y por qué importa."]},
+ {t:"Integrar Docker + modelo",why:"Empaquetar la API dentro de un contenedor es como se despliega un modelo en un entorno real de producción.",steps:["Retoma tu Dockerfile de la semana 11.","Dockeriza la API de FastAPI que expone tu modelo."]},
+ {t:"Proyecto: API + Docker",why:"Probar de punta a punta (contenedor corriendo, API respondiendo, predicción correcta) es la diferencia entre 'funciona en teoría' y 'funciona'.",steps:["Prueba de punta a punta: levanta el contenedor, llama la API, confirma que la predicción es correcta.","Documenta el proyecto con instrucciones claras de uso."]},
+ {t:"Repaso y consolidación del mes",why:"Cerrar el mes repasando y actualizando el portafolio consolida todo lo de ML, PyTorch y MLOps.",steps:["Repasa ML clásico, PyTorch y MLOps de este mes.","Mantenimiento de SQL: 3 problemas más en StrataScratch o DataLemur.","Actualiza tu portafolio con el proyecto de PyTorch y el de API+Docker."]},
+]},
+{month:5,theme:"Nextflow: fundamentos",
+ res:[{n:"Nextflow Training — versión en español (oficial)",u:"https://training.nextflow.io/2.1.3/es/basic_training/"}],
+ days:[
+ {t:"Conceptos: procesos y canales",why:"Un proceso es un paso del pipeline y un canal es cómo los datos pasan de un proceso a otro — toda la lógica de Nextflow se construye sobre estas dos ideas.",steps:["Nextflow Training en español: capítulo de fundamentos (Hello Nextflow).","Corre el primer pipeline de ejemplo del training."]},
+ {t:"Sintaxis DSL2 básica",why:"DSL2 es la sintaxis moderna de Nextflow — la que vas a usar en todo lo que sigue.",steps:["Nextflow Training en español: capítulo de sintaxis DSL2.","Escribe un proceso propio simple (por ejemplo, que cuente líneas de un archivo)."]},
+ {t:"Contenedores dentro de Nextflow",why:"Nextflow puede correr cada proceso dentro de un contenedor Docker — así tu pipeline funciona igual en cualquier computador.",steps:["Nextflow Training en español: sección sobre uso de Docker/Singularity en procesos.","Haz que tu proceso del día anterior corra dentro de un contenedor Docker."]},
+ {t:"Canales avanzados",why:"Los operadores de canal (map, filter, collect) son cómo transformas y combinas datos entre procesos.",steps:["Nextflow Training en español: operadores de canales (map, filter, collect).","Practica combinando 2 canales de entrada en un mismo proceso."]},
+ {t:"Configuración y perfiles",why:"Un perfil te deja correr el mismo pipeline distinto según el entorno (tu laptop vs. un servidor) sin cambiar el código.",steps:["Nextflow Training en español: sección de nextflow.config y profiles.","Crea un archivo de configuración con un perfil local y otro con Docker habilitado."]},
+ {t:"Primer pipeline propio",why:"Cerrar la semana con un mini pipeline propio, aunque sea simple, es lo que te prepara para meter tu proyecto real la próxima semana.",steps:["Arma un mini pipeline de 2-3 pasos (por ejemplo, FastQC + un resumen de texto).","Súbelo a un repositorio de práctica en GitHub."]},
+]},
+{month:5,theme:"Nextflow aplicado a tu propio proyecto RNA-seq",
+ res:[{n:"nf-core/rnaseq (referencia real de industria)",u:"https://nf-co.re/rnaseq",en:true},{n:"Nextflow Training (español)",u:"https://training.nextflow.io/2.1.3/es/basic_training/"}],
+ days:[
+ {t:"Explorar nf-core/rnaseq",why:"nf-core/rnaseq es un pipeline real usado en la industria — verlo te da el mapa de qué procesos necesitarías para el tuyo.",steps:["Explora la documentación y el código de nf-core/rnaseq (en inglés, pero navégalo como referencia, no hace falta leer todo).","Identifica qué procesos replicarían tu propio proyecto de expresión diferencial."]},
+ {t:"Diseña tu pipeline",why:"Planear en papel antes de programar evita perder tiempo reescribiendo la estructura a medio camino.",steps:["Diagrama en un archivo Markdown el pipeline de tu proyecto: FastQC → Trimming → Salmon → DESeq2."]},
+ {t:"Proceso de control de calidad",why:"FastQC es siempre el primer paso de cualquier pipeline de secuenciación — revisa la calidad antes de seguir.",steps:["Implementa en Nextflow el proceso de FastQC sobre los FASTQ de tu proyecto ya publicado.","Si no terminas hoy, está bien — continúa mañana antes de avanzar, no hay afán."]},
+ {t:"Proceso de pseudoalineamiento",why:"Salmon es la herramienta que ya usaste en R/consola para cuantificar transcritos — hoy la metes dentro del pipeline automatizado.",steps:["Implementa el proceso de Salmon dentro de tu pipeline Nextflow.","Si te falta terminar el proceso de FastQC de ayer, prioriza eso primero."]},
+ {t:"Envolver tu script de DESeq2 (no reescribirlo)",why:"No necesitas reescribir tu análisis de R en Nextflow — solo necesitas que Nextflow lo llame como un paso más del pipeline.",steps:["Haz que Nextflow llame tu script de DESeq2 ya existente como un solo proceso — no reimplementes la lógica de R, solo envuélvelo.","Si aún te falta FastQC o Salmon, termina eso antes de esto."]},
+ {t:"Prueba end-to-end y publicación",why:"Un pipeline de 2 pasos que funciona vale más que uno de 3 a medias — prioriza que corra completo, aunque sea con alcance reducido.",steps:["Corre el pipeline completo y corrige errores (si necesitas más de un día para esto, tómalo).","Súbelo como proyecto nuevo en GitHub, tu portafolio y LinkedIn."]},
+]},
+{month:5,theme:"APIs de LLM y GenAI aplicado a datos",
+ res:[{n:"Tutorial de Google AI Studio / API de Gemini (español)",u:"https://www.javadex.es/blog/google-ai-studio-tutorial-espanol-gemini-api-2026"},{n:"DeepLearning.AI Short Courses (gratis, con subtítulos)",u:"https://www.deeplearning.ai/short-courses/",en:true}],
+ days:[
+ {t:"Fundamentos de LLMs y prompting",why:"Un buen prompt es específico sobre qué quieres, con qué formato y con qué ejemplos — la diferencia entre una respuesta genérica y una útil.",steps:["DeepLearning.AI: short course de prompt engineering (activa subtítulos en español si el reproductor lo permite).","Practica escribiendo 5 prompts efectivos para tareas de análisis de datos."]},
+ {t:"Usar una API de LLM desde Python",why:"Las APIs de Claude y OpenAI son de pago (sin capa gratuita permanente) — Google AI Studio (Gemini) sí tiene capa gratuita real, ideal para practicar sin gastar.",steps:["Sigue el tutorial en español de Google AI Studio / API de Gemini.","Haz una llamada simple desde un script de Python que resuma un texto."]},
+ {t:"RAG: concepto y caso simple",why:"RAG es darle al modelo tus propios datos como contexto antes de preguntarle — así responde sobre TU información, no solo lo que ya sabía.",steps:["DeepLearning.AI: short course sobre RAG (retrieval augmented generation).","Explica en tus palabras cómo aplicarías RAG a tus propios datos de expresión génica."]},
+ {t:"LangChain básico",why:"LangChain encadena varios pasos con un LLM (buscar contexto, armar el prompt, llamar el modelo) en vez de hacerlo todo a mano.",steps:["DeepLearning.AI: short course de LangChain (más estable que la documentación oficial, que cambia seguido).","Construye una cadena simple que combine una pregunta con contexto propio."]},
+ {t:"Caso de uso propio",why:"Un mini chatbot sobre tus propios datos es un proyecto de portafolio que casi nadie más va a tener.",steps:["Diseña un mini chatbot que responda preguntas sobre tu dataset de bioestadística usando la API de Gemini.","Impleméntalo de forma simple — no tiene que ser perfecto."]},
+ {t:"Documentar y publicar",why:"Cerrar el proyecto con un buen README es lo que lo vuelve visible para quien revise tu portafolio.",steps:["Escribe el README: caso de uso, limitaciones, cómo correrlo.","Publica el mini-proyecto en GitHub y tu portafolio."]},
+]},
+{month:5,theme:"Proyecto integrador y cierre del mes",
+ res:[],
+ days:[
+ {t:"Definición del proyecto integrador",why:"Combinar dos herramientas del mes (Nextflow o Docker + ML o GenAI) en un solo proyecto muestra que puedes integrar, no solo seguir tutoriales sueltos.",steps:["Diseña un proyecto que combine Nextflow o Docker con ML o GenAI, aplicado a datos biológicos — puede ser una extensión de algo que ya construiste este mes."]},
+ {t:"Implementación parte 1",why:"Hoy es avanzar en código, no planear más.",steps:["Avanza en la construcción del pipeline/código del proyecto integrador."]},
+ {t:"Implementación parte 2",why:"Los errores de integración (dos piezas que casi funcionan juntas) suelen aparecer en el segundo día, no en el primero.",steps:["Continúa la implementación, resuelve errores, ajusta el flujo."]},
+ {t:"Documentación profesional",why:"Un README completo es lo que separa un proyecto de portafolio de un experimento personal.",steps:["Escribe el README completo: motivación, metodología, resultados, cómo reproducirlo."]},
+ {t:"Publicación",why:"Publicarlo es lo que lo vuelve parte real de tu portafolio.",steps:["Sube el proyecto a GitHub, tu portafolio web y LinkedIn."]},
+ {t:"Repaso y consolidación del mes",why:"Cerrar el mes actualizando tus CVs asegura que las certificaciones y proyectos nuevos realmente lleguen a los reclutadores.",steps:["Repasa Nextflow y GenAI de este mes.","Mantenimiento de SQL: 3 problemas más en StrataScratch o DataLemur.","Actualiza tus 3 CVs con los proyectos y habilidades nuevas del trimestre."]},
+]},
+{month:6,theme:"Agile/Jira + simulacro de prueba técnica",
+ res:[{n:"Curso Scrum Master completo gratis (español, YouTube)",u:"https://www.youtube.com/playlist?list=PLOdIL2qLP35tfwZiujEDG5KNLc6uWY73e"},{n:"Guía oficial de Jira (Atlassian)",u:"https://www.atlassian.com/software/jira/guides",en:true}],
+ days:[
+ {t:"Fundamentos de Scrum y Kanban",why:"Scrum organiza el trabajo en sprints con roles fijos; Kanban es un flujo continuo sin sprints — saber la diferencia es pregunta común de entrevista.",steps:["Curso de Scrum Master en español: roles, ceremonias y artefactos.","Compara por escrito cuándo usarías Scrum y cuándo Kanban."]},
+ {t:"Jira práctico + métricas",why:"Jira es la herramienta donde se ve Scrum/Kanban funcionando en la práctica — la interfaz se puede poner en español desde la configuración de tu cuenta.",steps:["Crea una cuenta gratuita de Jira (cambia el idioma a español en tu perfil) y sigue la guía oficial para crear un proyecto y un backlog.","Carga tu propio plan de estudio de la próxima semana como un sprint en Jira, para practicar con algo real."]},
+ {t:"Repaso Agile",why:"Ver cómo se pide Agile en ofertas reales te confirma qué tan a fondo necesitas saberlo (spoiler: nivel de familiaridad, no de experto).",steps:["Revisa 3 ofertas reales que pidan Agile/Jira y compara con lo que aprendiste."]},
+ {t:"Simulacro de prueba técnica (take-home) — parte 1",why:"Muchas empresas de datos en Colombia usan una prueba técnica tipo 'take-home' en vez de (o además de) preguntas de algoritmos — practicar el formato importa tanto como el contenido.",steps:["Elige un dataset nuevo y pequeño.","Ponte un cronómetro de 2 horas, como si fuera una prueba real de una empresa.","Bajo presión de tiempo: escribe 8-10 queries SQL de negocio + haz la limpieza inicial en Python."]},
+ {t:"Simulacro de prueba técnica (take-home) — parte 2",why:"La parte de comunicar el resultado a alguien no técnico es tan evaluada como el análisis mismo.",steps:["Con lo del día anterior, arma un mini dashboard o notebook de resultados.","Escribe un resumen ejecutivo de 1 página, como si se lo entregaras a un gerente no técnico."]},
+ {t:"Feedback del simulacro",why:"Un par de ojos externos encuentra huecos que tú no ves en tu propio trabajo.",steps:["Pide a alguien (compañero del máster, comunidad) que revise tu entrega como si fuera un reclutador.","Ajusta según el feedback recibido."]},
+]},
+{month:6,theme:"Entrevistas técnicas: SQL y Python",
+ res:[{n:"StrataScratch",u:"https://www.stratascratch.com/",en:true},{n:"DataLemur",u:"https://datalemur.com/",en:true},{n:"LeetCode (filtro SQL/Python)",u:"https://leetcode.com/",en:true}],
+ days:[
+ {t:"SQL en entrevistas I",why:"Practicar cronometrado simula la presión real de una entrevista técnica.",steps:["StrataScratch: 4 problemas de SQL nivel medio, cronometrado.","Revisa la solución óptima de cada uno, aunque lo hayas resuelto bien — a veces hay una forma más simple."]},
+ {t:"Python en entrevistas I",why:"En roles de datos, las preguntas de Python casi siempre son sobre manejo de datos (pandas), no algoritmos complejos de estructuras de datos.",steps:["LeetCode: 4 problemas fáciles-medios — prioriza el filtro 'Pandas/Database' sobre arrays/strings genéricos, es lo que más se pregunta en roles de datos."]},
+ {t:"SQL en entrevistas II",why:"Seguir variando el tipo de problema evita que memorices patrones sin entenderlos.",steps:["StrataScratch: 4 problemas más, de la categoría 'Data Science'."]},
+ {t:"Python en entrevistas II",why:"Entender POR QUÉ una solución es más rápida que otra (complejidad) es lo que un entrevistador realmente evalúa.",steps:["LeetCode: 4 problemas más.","Revisa la complejidad (Big O) de tus soluciones, no solo si funcionan."]},
+ {t:"Mixto + preguntas de negocio",why:"Explicar tu razonamiento en voz alta mientras resuelves es exactamente lo que hace un entrevistador real — hay que practicarlo, no solo el código.",steps:["Resuelve 3 problemas mixtos SQL/Python explicando tu razonamiento en voz alta mientras los resuelves."]},
+ {t:"Simulacro grabado",why:"Verte a ti mismo resolviendo un problema muestra tics (dudas, silencios largos) que no notas en el momento.",steps:["Resuelve 2 problemas nuevos grabándote como si fuera una entrevista real.","Revisa la grabación y anota qué mejorar."]},
+]},
+{month:6,theme:"Entrevistas de comportamiento y storytelling de proyectos",
+ res:[],
+ days:[
+ {t:"Método STAR",why:"STAR (Situación, Tarea, Acción, Resultado) es la estructura que usan la mayoría de entrevistadores para evaluar preguntas de comportamiento — responder sin esta estructura suena vago aunque tengas buena experiencia.",steps:["Situación: el contexto o desafío. Tarea: qué se esperaba de ti. Acción: qué hiciste tú específicamente (no el equipo). Resultado: qué pasó, con números si es posible.","Escribe un ejemplo propio (de cualquier ámbito, no tiene que ser laboral) usando esta estructura, para practicar el formato."]},
+ {t:"Historia de cada proyecto",why:"Tener la historia ya escrita evita que improvises mal en el momento de la entrevista.",steps:["Escribe con el método STAR la historia de tus 3 proyectos principales: TFM, RNA-seq con Salazar, ML/CNN."]},
+ {t:"Explicar sin tecnicismos",why:"Si no puedes explicarle tu proyecto a alguien no técnico, probablemente tampoco se lo puedas explicar bien a un reclutador de RRHH que filtra antes que el equipo técnico.",steps:["Explica tu TFM a alguien no técnico (familiar o amigo) en menos de 2 minutos.","Ajusta el lenguaje según su reacción — si se pierde en un punto, simplifica ahí."]},
+ {t:"Mock interview",why:"Practicar con alguien en español, a tu nivel, es más parecido a lo que vas a vivir pronto que una plataforma en inglés con desconocidos.",steps:["Practica primero con un compañero del máster (en español) — Pramp/Exponent queda como opción extra si más adelante quieres practicar en inglés."]},
+ {t:"Refinar respuestas",why:"La primera versión de una historia STAR casi nunca es la más clara — el feedback la mejora rápido.",steps:["Con el feedback recibido, reescribe tus 3 historias STAR mejorando claridad e impacto."]},
+ {t:"Repaso",why:"Decirlo en voz alta varias veces es lo que hace que suene natural y no memorizado en la entrevista real.",steps:["Practica en voz alta (sin leer) tus 3 historias hasta que salgan naturales."]},
+]},
+{month:6,theme:"Portafolio y marca personal final",
+ res:[],
+ days:[
+ {t:"Actualizar los 3 CVs",why:"Un CV desactualizado no refleja 6 meses de trabajo real — y tu ángulo de salud+datos es tu diferenciador, no un detalle secundario.",steps:["Agrega certificaciones (PL-300, AWS CCP si las obtuviste) y los proyectos nuevos del semestre.","Lidera con tu ángulo de bioinformática/datos en salud, no de analista genérico — es tu diferenciador real, hay menos competencia ahí."]},
+ {t:"Actualizar LinkedIn",why:"Los reclutadores buscan por palabras clave en LinkedIn — si el proyecto no está ahí, no existe para ellos.",steps:["Agrega los proyectos nuevos (BI, Nextflow, GenAI, PyTorch) a la sección Proyectos y a Habilidades."]},
+ {t:"Actualizar portafolio web",why:"Tu sitio debe reflejar el mismo nivel que tu LinkedIn — es lo primero que revisan si haces clic en el link.",steps:["Agrega tarjetas nuevas para los proyectos del semestre en tu sitio GitHub Pages."]},
+ {t:"Pulir READMEs de GitHub",why:"Un reclutador mira un repo 20-30 segundos — si el README no explica qué es y qué logra, no vuelve a mirar el código.",steps:["Revisa tus repos publicados: cada README debe decir qué es, cómo correrlo, y qué resultado obtuviste."]},
+ {t:"Feedback externo",why:"Un punto de vista externo detecta cosas obvias-para-ti-pero-confusas-para-otros que ya no puedes ver.",steps:["Comparte tu portafolio en una comunidad o con compañeros del máster y pide retroalimentación honesta."]},
+ {t:"Ajustes finales",why:"Cerrar el ciclo aplicando lo que te dijeron, no solo leyéndolo.",steps:["Aplica los ajustes más importantes del feedback recibido."]},
+]},
+{month:6,theme:"Aplicación activa I",
+ res:[],
+ days:[
+ {t:"Aplicar",why:"Aplicar sin estrategia desperdicia esfuerzo — priorizar por probabilidad real de respuesta es más eficiente que aplicar a todo por igual.",steps:["Aplica a 3-5 vacantes reales, adaptando el CV según el tipo de rol.","Prioriza primero ofertas en español sin requisito de inglés avanzado (tipo Comfama) — deja las que piden C1 (BairesDev, Liberty, Keyrus) para más adelante, cuando tu inglés esté más maduro.","Registra cada aplicación en una hoja de cálculo."]},
+ {t:"Aplicar",why:"Un mensaje personalizado en LinkedIn se lee más que una aplicación genérica por portal.",steps:["Aplica a 3-5 vacantes más.","Personaliza tu mensaje de presentación en LinkedIn para 2 de ellas."]},
+ {t:"Aplicar",why:"Responder rápido a una prueba técnica pendiente demuestra interés real, más allá del contenido de la respuesta.",steps:["Aplica a 3-5 vacantes más.","Revisa y responde mensajes o pruebas técnicas pendientes."]},
+ {t:"Aplicar",why:"Llegar preparado a una entrevista agendada vale más que aplicar a 2 vacantes extra ese día.",steps:["Aplica a 3-5 vacantes más.","Si tienes alguna entrevista agendada, prepárate para ella hoy."]},
+ {t:"Networking activo",why:"Aplicar solo por portal es el canal de menor probabilidad de respuesta — el networking y los referidos funcionan mejor y casi nadie lo hace bien.",steps:["Contacta a 5 personas de tu red (compañeros del máster, contactos de LinkedIn, comunidad de bioinformática en Colombia) pidiendo consejo o referidos, no solo apliques por portal.","Haz seguimiento a aplicaciones de hace más de una semana sin respuesta."]},
+ {t:"Repaso semanal",why:"Ajustar la estrategia según qué tipo de oferta te responde más es mejor que seguir aplicando igual sin revisar resultados.",steps:["Revisa qué tipo de oferta te está respondiendo más y ajusta tu estrategia de aplicación."]},
+]},
+{month:6,theme:"Aplicación activa II y cierre del plan",
+ res:[],
+ days:[
+ {t:"Aplicar",why:"Las certificaciones nuevas son tu argumento más fuerte ahora mismo — úsalas para priorizar a qué aplicar.",steps:["Aplica a 3-5 vacantes más, priorizando las que mejor calzan con tus certificaciones nuevas."]},
+ {t:"Aplicar + entrevistas",why:"Si ya te está llegando una entrevista real, prepararla vale más que aplicar a una vacante más ese día.",steps:["Continúa aplicando.","Si tienes entrevistas reales, prepáralas con lo practicado en las semanas 22-23."]},
+ {t:"Aplicar + entrevistas",why:"Mantener el ritmo de aplicaciones mientras atiendes procesos en curso evita quedarte sin opciones si uno no avanza.",steps:["Continúa aplicando y atendiendo los procesos que ya tengas en curso."]},
+ {t:"Repaso según feedback real",why:"El feedback de una entrevista real (aunque no avances) es la señal más confiable de qué te falta — mejor que seguir estudiando a ciegas.",steps:["Si alguna entrevista mostró un hueco, refuerza ese tema puntual con los recursos de la semana correspondiente."]},
+ {t:"Aplicar",why:"La constancia en la aplicación es lo que más predice resultados en un proceso de búsqueda de empleo.",steps:["Continúa aplicando activamente."]},
+ {t:"Evaluación general del semestre",why:"Cerrar el plan revisando el camino completo te da claridad sobre qué sigue, en vez de solo terminar sin más.",steps:["Revisa todo lo recorrido: certificaciones, proyectos y aplicaciones.","Define tus próximos pasos: seguir aplicando, profundizar un área específica, o prepararte para un primer empleo que ya esté cerca."]},
+]},
+];
+
+/* ---------------- state ---------------- */
+let progress = {};
+try{ progress = JSON.parse(localStorage.getItem('pe_progress')||'{}'); }catch(e){ progress = {}; }
+let startMonday = null;
+let activeMonth = 1;
+const openWeeks = new Set();
+
+function pad(n){ return n<10 ? '0'+n : ''+n; }
+function isoDate(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function nextMonday(from){
+  const d = new Date(from); d.setHours(0,0,0,0);
+  const day = d.getDay();
+  const diff = (8 - day) % 7;
+  d.setDate(d.getDate()+diff);
+  return d;
+}
+function loadStart(){
+  const saved = localStorage.getItem('pe_start_date');
+  if(saved){ const d = new Date(saved+'T00:00:00'); if(!isNaN(d)) return d; }
+  return nextMonday(new Date());
+}
+function saveStart(d){ localStorage.setItem('pe_start_date', isoDate(d)); }
+function saveProgress(){ localStorage.setItem('pe_progress', JSON.stringify(progress)); }
+function dateFor(weekIdx, dayIdx){
+  const d = new Date(startMonday);
+  d.setDate(d.getDate() + weekIdx*7 + dayIdx);
+  return d;
+}
+function fmtShort(d){ return d.getDate()+' '+MESES[d.getMonth()]; }
+function key(wi,di){ return 'w'+(wi+1)+'d'+(di+1); }
+
+function computeToday(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((today - startMonday)/86400000);
+  if(diff < 0) return {state:'before'};
+  const weekIdx = Math.floor(diff/7);
+  const dow = diff % 7;
+  if(weekIdx >= PLAN.length) return {state:'after'};
+  if(dow === 6) return {state:'sunday', weekIdx};
+  return {state:'day', weekIdx, dayIdx:dow};
+}
+
+/* ---------------- rendering ---------------- */
+function renderResumen(){
+  const grid = document.getElementById('resumen-grid');
+  grid.innerHTML = RESUMEN.map(r =>
+    '<div class="resumen-item"><span class="m-num">MES '+r.n+'</span><h3>'+r.t+'</h3><p>'+r.d+'</p><p style="margin-top:6px;">'+r.w+'</p></div>'
+  ).join('');
+}
+
+function monthProgress(m){
+  let done=0,total=0;
+  PLAN.forEach((w,wi)=>{ if(w.month===m){ w.days.forEach((d,di)=>{ total++; if(progress[key(wi,di)]) done++; }); } });
+  return {done,total};
+}
+function overallProgress(){
+  let done=0,total=0;
+  PLAN.forEach((w,wi)=>{ w.days.forEach((d,di)=>{ total++; if(progress[key(wi,di)]) done++; }); });
+  return {done,total};
+}
+
+function renderOverall(){
+  const {done,total} = overallProgress();
+  const pct = total? Math.round(done/total*100) : 0;
+  document.getElementById('overall-ring').style.setProperty('--pct', pct);
+  document.getElementById('overall-pct').textContent = pct+'%';
+  document.getElementById('overall-frac').textContent = done+'/'+total;
+}
+
+function renderMonthTabs(){
+  const nav = document.getElementById('month-tabs');
+  nav.innerHTML = '';
+  for(let m=1;m<=6;m++){
+    const {done,total} = monthProgress(m);
+    const pct = total? Math.round(done/total*100):0;
+    const btn = document.createElement('button');
+    btn.className = 'month-tab';
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', m===activeMonth ? 'true':'false');
+    const theme = RESUMEN[m-1].t;
+    btn.innerHTML = '<span class="mt-num">MES '+m+' · '+done+'/'+total+'</span><div class="mt-theme">'+theme+'</div><div class="mt-bar" style="--p:'+pct+'%"><i></i></div>';
+    btn.addEventListener('click', ()=>{ activeMonth=m; renderMonthTabs(); renderWeeks(); });
+    nav.appendChild(btn);
+  }
+}
+
+function dayBodyHTML(day, cls){
+  const why = day.why ? '<p class="'+cls+'-why">'+day.why+'</p>' : '';
+  const steps = '<ol class="'+cls+'-steps">'+day.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>';
+  return why+steps;
+}
+function resourceChipsHTML(res, cls){
+  if(!res || !res.length) return '';
+  return '<div class="'+(cls||'week-resources')+'">'+res.map(r=>'<a class="res-chip" href="'+r.u+'" target="_blank" rel="noopener">'+r.n+(r.en?' <span class="en-flag">EN</span>':'')+'</a>').join('')+'</div>';
+}
+
+function renderWeeks(){
+  const cont = document.getElementById('weeks-container');
+  cont.innerHTML = '';
+  const todayInfo = computeToday();
+  PLAN.forEach((week, wi) => {
+    if(week.month !== activeMonth) return;
+    const weekNum = wi+1;
+    let doneCount=0;
+    week.days.forEach((d,di)=>{ if(progress[key(wi,di)]) doneCount++; });
+    const isCurrentWeek = todayInfo.state==='day' && todayInfo.weekIdx===wi;
+    if(isCurrentWeek) openWeeks.add(wi);
+    const isOpen = openWeeks.has(wi);
+    const el = document.createElement('div');
+    el.className = 'week' + (isOpen ? ' open':'');
+    el.id = 'week-'+weekNum;
+    const head = document.createElement('div');
+    head.className='week-head';
+    head.innerHTML = '<span class="wk-badge">SEM '+weekNum+'</span><span class="wk-theme">'+week.theme+'</span><span class="wk-frac">'+doneCount+'/6</span><span class="wk-chevron">›</span>';
+    head.addEventListener('click', ()=>{
+      if(openWeeks.has(wi)) openWeeks.delete(wi); else openWeeks.add(wi);
+      el.classList.toggle('open');
+    });
+    const body = document.createElement('div');
+    body.className='week-body';
+    body.innerHTML = resourceChipsHTML(week.res);
+    week.days.forEach((day, di) => {
+      const d = dateFor(wi, di);
+      const done = !!progress[key(wi,di)];
+      const isToday = todayInfo.state==='day' && todayInfo.weekIdx===wi && todayInfo.dayIdx===di;
+      const row = document.createElement('div');
+      row.className = 'day-row' + (done?' done':'') + (isToday?' today':'');
+      row.innerHTML =
+        '<input type="checkbox" class="day-check" '+(done?'checked':'')+' data-k="'+key(wi,di)+'">'+
+        '<div class="day-main">'+
+          '<div class="day-top"><span class="day-dow">'+DOW[di]+'</span><span class="day-date">'+fmtShort(d)+'</span>'+(isToday?'<span class="today-flag">HOY</span>':'')+'</div>'+
+          '<div class="day-title">'+day.t+'</div>'+
+          dayBodyHTML(day,'day')+
+        '</div>';
+      row.querySelector('.day-check').addEventListener('change', (e)=>{
+        progress[key(wi,di)] = e.target.checked;
+        saveProgress();
+        renderAll();
+      });
+      body.appendChild(row);
+    });
+    el.appendChild(head);
+    el.appendChild(body);
+    cont.appendChild(el);
+  });
+}
+
+function renderHoy(){
+  const card = document.getElementById('hoy-card');
+  const info = computeToday();
+  if(info.state==='before'){
+    card.innerHTML = '<span class="hoy-chip">Antes de empezar</span><h2>Tu plan arranca el '+fmtShort(startMonday)+'</h2><p class="week-of">Ajusta la fecha de inicio abajo si quieres arrancar otro día. Mientras tanto, explora el resto del calendario.</p>';
+    return;
+  }
+  if(info.state==='after'){
+    card.innerHTML = '<span class="hoy-chip">Plan completado</span><h2>Terminaste las 26 semanas</h2><p class="week-of">Sigue aplicando y afinando lo aprendido — revisa la semana 26 si necesitas repasar algo puntual.</p>';
+    return;
+  }
+  if(info.state==='sunday'){
+    card.innerHTML = '<span class="hoy-chip">Semana '+(info.weekIdx+1)+' · Domingo</span><h2>Hoy es tu día de descanso</h2><p class="week-of">Aprovecha para repasar dudas de la semana o adelantar algo si vas atrasado. Mañana retomas.</p>';
+    return;
+  }
+  const week = PLAN[info.weekIdx];
+  const day = week.days[info.dayIdx];
+  const k = key(info.weekIdx, info.dayIdx);
+  const done = !!progress[k];
+  card.innerHTML =
+    '<span class="hoy-chip">Semana '+(info.weekIdx+1)+' · '+DOW[info.dayIdx]+'</span>'+
+    '<h2>'+day.t+'</h2>'+
+    '<p class="week-of">'+week.theme+' — '+fmtShort(dateFor(info.weekIdx,info.dayIdx))+'</p>'+
+    dayBodyHTML(day,'hoy')+
+    resourceChipsHTML(week.res,'hoy-resources')+
+    '<button class="hoy-mark" data-done="'+done+'" id="hoy-mark-btn">'+(done?'Sesión completada ✓':'Marcar sesión de hoy como completada')+'</button>';
+  document.getElementById('hoy-mark-btn').addEventListener('click', ()=>{
+    progress[k] = !progress[k];
+    saveProgress();
+    renderAll();
+  });
+}
+
+function renderAll(){
+  renderOverall();
+  renderMonthTabs();
+  renderHoy();
+  renderWeeks();
+}
+
+/* ---------------- descargas (funciona dentro y fuera de claude.ai) ---------------- */
+function hasClaudeDownloads(){ return !!(window.claude && window.claude.downloads); }
+
+async function saveFile(filename, data, fallbackText){
+  if(hasClaudeDownloads()){
+    try{
+      await window.claude.downloads.save({filename, data});
+      return true;
+    }catch(e){
+      if(fallbackText){ document.getElementById('ics-fallback').style.display='block'; document.getElementById('ics-text').value = data; }
+      showToast('No se pudo descargar. '+(fallbackText?'Copia el contenido de abajo.':''));
+      return false;
+    }
+  }
+  try{
+    const blob = new Blob([data], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 4000);
+    return true;
+  }catch(e){
+    if(fallbackText){ document.getElementById('ics-fallback').style.display='block'; document.getElementById('ics-text').value = data; }
+    return false;
+  }
+}
+
+function icsEscape(s){ return String(s).replace(/\\/g,'\\\\').replace(/,/g,'\\,').replace(/;/g,'\\;'); }
+function icsDateTime(d,hh,mm){ return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(hh)+pad(mm)+'00'; }
+
+function buildICS(){
+  const [sh,sm] = document.getElementById('start-time').value.split(':').map(Number);
+  const [eh,em] = document.getElementById('end-time').value.split(':').map(Number);
+  const now = new Date();
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Plan de Estudio Bioinformatica y Datos//ES','CALSCALE:GREGORIAN'];
+  PLAN.forEach((week, wi)=>{
+    week.days.forEach((day, di)=>{
+      const d = dateFor(wi,di);
+      const uid = 'pe-w'+(wi+1)+'d'+(di+1)+'-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'@plan-estudio';
+      const summary = icsEscape('Semana '+(wi+1)+' - '+DOW[di]+': '+day.t);
+      const resTxt = week.res && week.res.length ? ('\\n\\nRecursos:\\n'+week.res.map(r=>icsEscape(r.n+': '+r.u)).join('\\n')) : '';
+      const whyTxt = day.why ? icsEscape(day.why)+'\\n\\n' : '';
+      const stepsTxt = day.steps.map((t,i)=>icsEscape((i+1)+'. '+t)).join('\\n');
+      lines.push('BEGIN:VEVENT');
+      lines.push('UID:'+uid);
+      lines.push('DTSTAMP:'+icsDateTime(now, now.getHours(), now.getMinutes()));
+      lines.push('DTSTART:'+icsDateTime(d, sh||18, sm||0));
+      lines.push('DTEND:'+icsDateTime(d, eh||20, em||0));
+      lines.push('SUMMARY:'+summary);
+      lines.push('DESCRIPTION:'+whyTxt+stepsTxt+resTxt);
+      lines.push('BEGIN:VALARM');
+      lines.push('ACTION:DISPLAY');
+      lines.push('DESCRIPTION:Recordatorio de estudio');
+      lines.push('TRIGGER:-PT30M');
+      lines.push('END:VALARM');
+      lines.push('END:VEVENT');
+    });
+  });
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+function buildGuideMarkdown(){
+  let out = '# Plan de Estudio — Bioinformática & Datos\n\n26 semanas · 156 sesiones de 2 horas · ~312 horas totales.\n\n';
+  let month = 0;
+  PLAN.forEach((week, wi)=>{
+    if(week.month !== month){
+      month = week.month;
+      const r = RESUMEN[month-1];
+      out += '\n## Mes '+month+': '+r.t+'\n\n'+r.d+'\n';
+    }
+    out += '\n### Semana '+(wi+1)+': '+week.theme+'\n\n';
+    if(week.res && week.res.length){
+      out += 'Recursos: '+week.res.map(r=>r.n+(r.en?' (EN)':'')+' — '+r.u).join(' · ')+'\n\n';
+    }
+    week.days.forEach((day, di)=>{
+      out += '**'+DOW[di]+' — '+day.t+'**\n\n';
+      if(day.why) out += '_'+day.why+'_\n\n';
+      day.steps.forEach((s,i)=>{ out += (i+1)+'. '+s+'\n'; });
+      out += '\n';
+    });
+  });
+  return out;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(showToast._h);
+  showToast._h = setTimeout(()=>{ t.style.display='none'; }, 5000);
+}
+
+async function downloadICS(){
+  const ics = buildICS();
+  const filename = hasClaudeDownloads() ? 'recordatorios-plan-estudio.txt' : 'recordatorios-plan-estudio.ics';
+  const ok = await saveFile(filename, ics, true);
+  if(ok){
+    showToast(hasClaudeDownloads() ? 'Descargado. Cámbiale la extensión a .ics e impórtalo en tu calendario.' : 'Descargado. Impórtalo en Google Calendar o Calendario de iPhone/Android.');
+  }
+}
+
+async function downloadGuide(){
+  const md = buildGuideMarkdown();
+  const ok = await saveFile('plan-estudio-guia-completa.md', md);
+  if(ok) showToast('Guía descargada — ábrela con cualquier editor de texto o visor de Markdown.');
+}
+
+async function exportProgress(){
+  const data = JSON.stringify({startDate:isoDate(startMonday), progress}, null, 2);
+  const ok = await saveFile('progreso-plan-estudio.json', data);
+  if(ok) showToast('Progreso exportado. Impórtalo en tu otro dispositivo con el botón Importar.');
+}
+
+function importProgress(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(parsed.progress){ progress = Object.assign({}, progress, parsed.progress); saveProgress(); }
+      renderAll();
+      showToast('Progreso importado correctamente.');
+    }catch(e){
+      showToast('El archivo no es válido.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ---------------- init ---------------- */
+function init(){
+  renderResumen();
+  startMonday = loadStart();
+  document.getElementById('start-date').value = isoDate(startMonday);
+  document.getElementById('start-date').addEventListener('change', (e)=>{
+    const chosen = new Date(e.target.value+'T00:00:00');
+    if(isNaN(chosen)) return;
+    startMonday = nextMonday(chosen);
+    document.getElementById('start-date').value = isoDate(startMonday);
+    saveStart(startMonday);
+    renderAll();
+  });
+  document.getElementById('ics-hint').textContent = hasClaudeDownloads()
+    ? 'El archivo se descarga como .txt (única extensión de calendario que este visor permite entregar). Cámbiale la extensión a .ics — clic derecho → cambiar nombre — y ábrelo con Google Calendar o Calendario de iPhone/Android.'
+    : 'Se descarga como archivo .ics real — ábrelo directamente con Google Calendar o Calendario de iPhone/Android, cada sesión llega con recordatorio 30 min antes.';
+  const todayInfo0 = computeToday();
+  if(todayInfo0.state==='day' || todayInfo0.state==='sunday'){
+    activeMonth = PLAN[todayInfo0.weekIdx].month;
+  }
+  document.getElementById('btn-ics').addEventListener('click', downloadICS);
+  document.getElementById('btn-guide').addEventListener('click', downloadGuide);
+  document.getElementById('btn-export').addEventListener('click', exportProgress);
+  document.getElementById('input-import').addEventListener('change', (e)=>{
+    if(e.target.files && e.target.files[0]) importProgress(e.target.files[0]);
+  });
+  document.getElementById('btn-jump-today').addEventListener('click', ()=>{
+    const info = computeToday();
+    if(info.state!=='day' && info.state!=='sunday'){ showToast('Hoy está fuera del rango del plan.'); return; }
+    activeMonth = PLAN[info.weekIdx].month;
+    openWeeks.add(info.weekIdx);
+    renderMonthTabs();
+    renderWeeks();
+    const wk = document.getElementById('week-'+(info.weekIdx+1));
+    if(wk){ wk.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+  renderAll();
+}
+init();
+</script>
+</body>
+</html>
